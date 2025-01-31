@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mabc2/pages/home_page.dart';
+import 'package:mabc2/pages/registration_page.dart';
 import 'package:mabc2/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +70,7 @@ class _HomePageState extends State<LoginPage> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF6D5ED2),
+                      backgroundColor: Colors.indigo,
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -85,6 +86,16 @@ class _HomePageState extends State<LoginPage> {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
               ),
+              SizedBox(height: 40,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Akkauntingiz yoqmi?  '),
+                  InkWell(onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationPage()));
+                  },child: Text('Ro\'yhatdan o\'tish',style: TextStyle(color: Colors.indigo),)),
+                ],
+              )
             ],
           ),
         ),
