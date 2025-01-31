@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mabc2/pages/home_page.dart';
+import 'package:mabc2/view_model/login_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,8 +31,13 @@ class _HomePageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Dasturga xush kelibsiz',style: TextStyle(fontSize: 24),),
-              SizedBox(height: 40,),
+              Text(
+                'Dasturga xush kelibsiz',
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(
+                height: 40,
+              ),
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
@@ -65,13 +72,17 @@ class _HomePageState extends State<LoginPage> {
                       backgroundColor: Color(0xFF6D5ED2),
                     ),
                     onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                        context.read<LoginViewModel>().login();
                       }
                     },
                     child: Text(
                       'Kirish',
-                      style: TextStyle(color: Colors.white,fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
               ),
             ],
