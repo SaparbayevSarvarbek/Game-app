@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:mabc2/pages/result_page.dart';
+import 'package:mabc2/view_model/test_view_model.dart';
+import 'package:provider/provider.dart';
+
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
 
@@ -8,14 +12,16 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  int _listIndex = 2;
   late Timer _timer;
-  int _remainingSeconds = 500;
-  final int _totalTime = 500;
+  int _remainingSeconds = 10;
+  final int _totalTime = 10;
   double _progressValue = 0.0;
 
   @override
   void initState() {
     super.initState();
+    context.read<TestViewModel>().getQuestion();
     _startTimer();
   }
 
@@ -36,7 +42,7 @@ class _TestPageState extends State<TestPage> {
     _timer.cancel();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => NextPage()),
+      MaterialPageRoute(builder: (context) => ResultPage()),
     );
   }
 
@@ -45,69 +51,81 @@ class _TestPageState extends State<TestPage> {
     _timer.cancel();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
+    List questionList=context.watch<TestViewModel>().question;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Test"),
-        backgroundColor: Color(0xFF6D5ED2),
-        foregroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0.0, end: _progressValue),
-              duration: const Duration(milliseconds: 900),
-              builder: (context, value, _) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      height: 150,
-                      child: CircularProgressIndicator(
-                        value: value,
-                        strokeWidth: 8,
-                        backgroundColor: Colors.grey.shade300,
-                        valueColor:
-                        const AlwaysStoppedAnimation<Color>(Colors.blue),
-                      ),
-                    ),
-                    Text(
-                      "$_remainingSeconds",
-                      style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _navigateToNextPage,
-              child: const Text("Tugatish"),
-            ),
-          ],
+        appBar: AppBar(
+          title: const Text("Test"),
+          backgroundColor: Color(0xFF6D5ED2),
+          foregroundColor: Colors.white,
         ),
-      ),
-    );
-  }
-}
-
-class NextPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Keyingi sahifa")),
-      body: const Center(
-        child: Text(
-          "Siz keyingi sahifaga o'tdingiz!",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          margin: EdgeInsets.only(top: 100),
+          child: Column(children: [
+            Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Card(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          questionList[_listIndex].image,
+                          fit: BoxFit.fill,
+                        ),
+                        SizedBox(height: 10,),
+                        Text(questionList[_listIndex].title),
+                        SizedBox(height: 10,),
+                        Text(questionList[_listIndex].description),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -50,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(begin: 0.0, end: _progressValue),
+                    duration: const Duration(milliseconds: 900),
+                    builder: (context, value, _) {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: CircularProgressIndicator(
+                              value: value,
+                              strokeWidth: 8,
+                              backgroundColor: Colors.grey.shade300,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.blue),
+                            ),
+                          ),
+                          Text(
+                            "$_remainingSeconds",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            ElevatedButton(onPressed: () {}, child: Text('Keyingisi'))
+          ]),
+        ));
   }
 }
