@@ -25,81 +25,94 @@ class _HomePageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Dasturga xush kelibsiz',
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                    labelText: 'Ism', border: OutlineInputBorder()),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Ismingni kiriting';
-                  }
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                    labelText: 'Parol', border: OutlineInputBorder()),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Parolni kirting';
-                  }
-                },
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
-                        context.read<LoginViewModel>().login();
-                      }
-                    },
-                    child: Text(
-                      'Kirish',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    )),
-              ),
-              SizedBox(height: 40,),
-              Row(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Consumer<LoginViewModel>(builder: (context, provider, child) {
+            return Form(
+              key: _formKey,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Akkauntingiz yoqmi?  '),
-                  InkWell(onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationPage()));
-                  },child: Text('Ro\'yhatdan o\'tish',style: TextStyle(color: Colors.indigo),)),
+                  Text(
+                    'Dasturga xush kelibsiz',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                        labelText: 'Ism', border: OutlineInputBorder()),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Ismingni kiriting';
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                        labelText: 'Parol', border: OutlineInputBorder()),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Parolni kirting';
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: provider.isLoading
+                        ? const CircularProgressIndicator()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.indigo,
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<LoginViewModel>().loginUser(
+                                    _nameController.text,
+                                    _passwordController.text,
+                                    context);
+                              }
+                            },
+                            child: Text(
+                              'Kirish',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            )),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Akkauntingiz yoqmi?  '),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegistrationPage()));
+                          },
+                          child: Text(
+                            'Ro\'yhatdan o\'tish',
+                            style: TextStyle(color: Colors.indigo),
+                          )),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
-      ),
+              ),
+            );
+          })),
     );
   }
 }
