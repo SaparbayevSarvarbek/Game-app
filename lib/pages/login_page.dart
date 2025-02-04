@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:mabc2/pages/registration_page.dart';
 import 'package:mabc2/view_model/login_view_model.dart';
@@ -14,6 +17,7 @@ class _HomePageState extends State<LoginPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String? _message;
 
   @override
   void initState() {
@@ -66,20 +70,30 @@ class _HomePageState extends State<LoginPage> {
                     height: 24,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
+                    width: provider.isLoading
+                        ? 40
+                        : MediaQuery.of(context).size.width,
+                    height: provider.isLoading ? 40 : 50,
                     child: provider.isLoading
-                        ? const CircularProgressIndicator()
+                        ? CircularProgressIndicator()
                         : ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.indigo,
                             ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<LoginViewModel>().loginUser(
-                                    _nameController.text,
-                                    _passwordController.text,
-                                    context);
+                            onPressed: () async {
+                              bool isConnected = await checkInternet();
+                              if (isConnected) {
+                                if (_formKey.currentState!.validate()) {
+                                  context.read<LoginViewModel>().loginUser(
+                                      _nameController.text,
+                                      _passwordController.text,
+                                      context);
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text("Internet mavjud emas")),
+                                );
                               }
                             },
                             child: Text(
@@ -113,5 +127,20 @@ class _HomePageState extends State<LoginPage> {
             );
           })),
     );
+  }
+
+  Future<bool> checkInternet() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    }
+
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
+    }
   }
 }

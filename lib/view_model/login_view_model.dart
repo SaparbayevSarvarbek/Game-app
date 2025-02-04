@@ -36,11 +36,6 @@ class LoginViewModel extends ChangeNotifier {
           MaterialPageRoute(builder: (context) => const HomePage()),
         );
       }
-      else if(errorMessage==response['inernet']){
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Internet bilan muammo bor")),
-        );
-      }
       else {
         errorMessage = response['error'] ?? 'Bunday foydalanuvchi yo\'q';
         ScaffoldMessenger.of(context).showSnackBar(

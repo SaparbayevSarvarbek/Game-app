@@ -5,7 +5,6 @@ import 'package:mabc2/moduls/username_model.dart';
 
 class ApiService {
   Dio dio = Dio();
-
   Future<Map<String, dynamic>?> login(String username, String password) async {
     FormData formData = FormData.fromMap({
       'username': username,
@@ -20,14 +19,14 @@ class ApiService {
       if(response.statusCode==200){
         return response.data;
       }else{
-       return null;
+       return {'error':'Bad request ${response.statusCode}'};
       }
     }on SocketException{
-     return {'internet':'Internet bilan muommo bor'};
+     return {'error':'Internet bilan muammo bor'};
     }
     catch (e) {
+      print('Login serviceda xatolik $e');
       return {'error': 'Bunday foydalanuvchi yo\'q'};
-      print('Login serviceda xatolik');
     }
   }
 
