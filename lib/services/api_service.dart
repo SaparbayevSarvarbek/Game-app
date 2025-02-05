@@ -52,7 +52,7 @@ class ApiService {
         List question = response.data
             .map((e) => CategoryModel.fromJson(e))
             .toList()
-            .cast<QuestionModel>();
+            .cast<CategoryModel>();
         return question;
       }
     } catch (e) {

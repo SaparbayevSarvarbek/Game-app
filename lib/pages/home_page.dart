@@ -23,6 +23,12 @@ class _HomePageState extends State<HomePage> {
   File? _image;
 
   @override
+  void initState() {
+    super.initState();
+    context.read<TestViewModel>().getQuestion();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -34,42 +40,27 @@ class _HomePageState extends State<HomePage> {
           title: Text('Asosiy sahifa'),
         ),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Card(
-          elevation: 15,
-          color: Colors.indigo,
-          child: Container(
-            height: 350,
-            width: 250,
-            child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Image.asset('assets/images/sonic.png')),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TestPage()));
-                },
-                child: Text(
-                  'Boshlash',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                )),
-          ),
-        ),
-      ]),
+      body: Consumer<TestViewModel>(builder: (context, myProvider, child) {
+        if (myProvider.isLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.all(10.0),
+            child: ListView.builder(
+              itemCount: myProvider.question.length,
+              itemBuilder: (context, index) {
+                final category = myProvider.question[index];
+                return ListTile(
+                  title: Text(category.title),
+                );
+              },
+            ),
+          );
+        }
+      }),
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
@@ -82,19 +73,22 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap:_pickImage,
+                      onTap: _pickImage,
                       child: CircleAvatar(
                         radius: 40,
                         backgroundColor: Colors.grey[300],
                         backgroundImage:
-                        _image != null ? FileImage(_image!) : null,
+                            _image != null ? FileImage(_image!) : null,
                         child: _image == null
                             ? const Icon(Icons.add_a_photo,
-                            size: 40, color: Colors.white)
+                                size: 40, color: Colors.white)
                             : null,
                       ),
                     ),
-                    Text('Dasturga xush kelibsiz ${widget.username}',style: TextStyle(color: Colors.white),),
+                    Text(
+                      'Dasturga xush kelibsiz ${widget.username}',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ],
                 )),
             ListTile(
@@ -129,7 +123,6 @@ class _HomePageState extends State<HomePage> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String? refreshToken = prefs.getString('auth_token');
                 if (refreshToken != null) {
-                  print('Token $refreshToken');
                   context.read<TestViewModel>().logOut(refreshToken);
                 } else {
                   print("Token topilmadi");
@@ -143,7 +136,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {

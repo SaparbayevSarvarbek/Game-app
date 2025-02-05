@@ -7,12 +7,11 @@ class CategoryModel {
   CategoryModel({required this.title, required this.questionList});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
-    List<QuestionModel> gameList = [];
-    if (json['games'] != null) {
-      json['games'].forEach((key, value) {
-        gameList.add(QuestionModel.fromJson(value));
-      });
-    }
-    return CategoryModel(title: json['title'], questionList: gameList);
+    return CategoryModel(
+      title: json['title'],
+      questionList: (json['game'] as List)
+          .map((game) => QuestionModel.fromJson(game))
+          .toList(),
+    );
   }
 }
