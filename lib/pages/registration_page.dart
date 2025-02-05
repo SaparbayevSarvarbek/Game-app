@@ -103,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       if(_formKey.currentState!.validate()){
                         UsernameModel usernameModel=UsernameModel(username: _nameController.text, email: _emailController.text, password: _passwordController.text, password2: _password2Controller.text);
                         context.read<RegistrationViewModel>().addUser(usernameModel);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage(username:_nameController.text,)));
                       }
                     },
                     style: ElevatedButton.styleFrom(

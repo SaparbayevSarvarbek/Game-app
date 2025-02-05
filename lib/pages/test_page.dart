@@ -14,7 +14,7 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  int _listIndex = 2;
+  int _listIndex = 0;
   late Timer _timer;
   int _remainingSeconds = 10000;
   final int _totalTime = 10000;
@@ -62,38 +62,55 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Test"),
-        backgroundColor: const Color(0xFF6D5ED2),
+        backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        margin: const EdgeInsets.only(top: 100),
         alignment: Alignment.center,
         child: Consumer<TestViewModel>(
           builder: (context, myProvider, child) {
-            return myProvider.isLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : ListView.builder(
-                    itemCount: myProvider.question.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        elevation: 10,
-                        child: Column(
-                          spacing: 16.0,
-                          children: [
-                            Text(myProvider.question[index].title),
-                            myProvider.question[index].gift
-                                ? Image.network(
-                                    myProvider.question[index].image)
-                                : Image.network(
-                                    myProvider.question[index].gift),
-                            Text(myProvider.question[index].description),
-                          ],
-                        ),
-                      );
-                    });
+            if (myProvider.isLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Column(
+                children: [
+                  Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        spacing: 16.0,
+                        children: [
+                          Text(
+                            questionList[_listIndex].title,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          myProvider.question[_listIndex].gift.isNotEmpty
+                              ? Image.network(
+                                  myProvider.question[_listIndex].gift,
+                                )
+                              : Image.network(questionList[_listIndex].image),
+                          Text(
+                            questionList[_listIndex].description,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _listIndex++;
+                        });
+                      },
+                      child: Text('Keyingi'))
+                ],
+              );
+            }
           },
         ),
       ),

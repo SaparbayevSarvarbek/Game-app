@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:mabc2/moduls/question_model.dart';
 import 'package:mabc2/moduls/username_model.dart';
 
+import '../moduls/category_model.dart';
+
 class ApiService {
   Dio dio = Dio();
   Future<Map<String, dynamic>?> login(String username, String password) async {
@@ -45,10 +47,10 @@ class ApiService {
   Future getQuestion() async {
     try {
       Response response =
-          await dio.get('https://oyinlar.pythonanywhere.com/api/evaluations/');
+          await dio.get('https://oyinlar.pythonanywhere.com/api/categories/');
       if (response.statusCode == 200) {
         List question = response.data
-            .map((e) => QuestionModel.fromJson(e))
+            .map((e) => CategoryModel.fromJson(e))
             .toList()
             .cast<QuestionModel>();
         return question;

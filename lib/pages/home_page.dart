@@ -1,17 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mabc2/pages/info_page.dart';
 import 'package:mabc2/pages/instruction_page.dart';
 import 'package:mabc2/pages/login_page.dart';
 import 'package:mabc2/pages/test_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  String username;
+
+  HomePage({Key? key, required this.username}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  File? _image;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,40 +73,71 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.indigo),
-              child: const Text('Navigatsiya paneli'),
-            ),
+                decoration: const BoxDecoration(color: Colors.indigo),
+                child: Column(
+                  spacing: 16.0,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap:_pickImage,
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.grey[300],
+                        backgroundImage:
+                        _image != null ? FileImage(_image!) : null,
+                        child: _image == null
+                            ? const Icon(Icons.add_a_photo,
+                            size: 40, color: Colors.white)
+                            : null,
+                      ),
+                    ),
+                    Text('Dasturga xush kelibsiz ${widget.username}',style: TextStyle(color: Colors.white),),
+                  ],
+                )),
             ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Asosiy sahifa'),
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
               leading: const Icon(Icons.book),
               title: const Text('Yo\'riqnoma'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>InstructionPage()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => InstructionPage()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.info),
               title: const Text('Dastur haqida'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoPage()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => InfoPage()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Chiqish'),
-              onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+              onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               },
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
   }
 }
