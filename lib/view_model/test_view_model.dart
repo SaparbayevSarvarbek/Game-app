@@ -14,4 +14,8 @@ class TestViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+  Future logOut(String refreshToken)async{
+    ApiService().logOut(refreshToken);
+    notifyListeners();
+  }
 }

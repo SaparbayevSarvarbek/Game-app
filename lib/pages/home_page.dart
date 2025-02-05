@@ -6,6 +6,9 @@ import 'package:mabc2/pages/info_page.dart';
 import 'package:mabc2/pages/instruction_page.dart';
 import 'package:mabc2/pages/login_page.dart';
 import 'package:mabc2/pages/test_page.dart';
+import 'package:mabc2/view_model/test_view_model.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   String username;
@@ -120,9 +123,17 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Chiqish'),
-              onTap: () {
+              onTap: () async {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String? refreshToken = prefs.getString('auth_token');
+                if (refreshToken != null) {
+                  print('Token $refreshToken');
+                  context.read<TestViewModel>().logOut(refreshToken);
+                } else {
+                  print("Token topilmadi");
+                }
               },
             ),
           ],
