@@ -18,6 +18,7 @@ class _HomePageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? _message;
+  bool _obscureText = false;
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _HomePageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
           child: Consumer<LoginViewModel>(builder: (context, provider, child) {
             return Form(
               key: _formKey,
@@ -46,7 +47,9 @@ class _HomePageState extends State<LoginPage> {
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                        labelText: 'Ism', border: OutlineInputBorder()),
+                        prefixIcon: Icon(Icons.account_circle_sharp),
+                        labelText: 'Ism',
+                        border: OutlineInputBorder()),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Ismingni kiriting';
@@ -58,8 +61,23 @@ class _HomePageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     controller: _passwordController,
+                    obscureText: _obscureText,
                     decoration: InputDecoration(
-                        labelText: 'Parol', border: OutlineInputBorder()),
+                        labelText: 'Parol',
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Parolni kirting';
@@ -69,7 +87,8 @@ class _HomePageState extends State<LoginPage> {
                   SizedBox(
                     height: 24,
                   ),
-                  SizedBox(
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20.0),
                     width: provider.isLoading
                         ? 40
                         : MediaQuery.of(context).size.width,

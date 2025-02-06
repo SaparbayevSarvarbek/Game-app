@@ -24,14 +24,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
         body: Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 16.0),
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
       child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                  margin: EdgeInsets.symmetric(vertical: 18),
+                  child: Text('Ro\'yhatdan o\'tish',
+                      style: TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold))),
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.account_circle_rounded,
+                      color: Colors.indigo,
+                    ),
                     labelText: 'Foydalanuvchi nomi',
                     border: OutlineInputBorder()),
                 validator: (value) {
@@ -48,7 +58,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                    labelText: 'Elektron pochta', border: OutlineInputBorder()),
+                    prefixIcon: Icon(Icons.email_sharp, color: Colors.indigo),
+                    labelText: 'Elektron pochta',
+                    border: OutlineInputBorder()),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Elektron pochtani kirting';
@@ -66,7 +78,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(
-                    labelText: 'Parol', border: OutlineInputBorder()),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.indigo,
+                    ),
+                    labelText: 'Parol',
+                    border: OutlineInputBorder()),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Parolni kirting';
@@ -80,6 +97,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextFormField(
                 controller: _password2Controller,
                 decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.indigo,
+                    ),
                     labelText: 'Parolni takror kirting',
                     border: OutlineInputBorder()),
                 validator: (value) {
@@ -98,12 +119,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 50,
+                margin: EdgeInsets.symmetric(horizontal: 20.0),
                 child: ElevatedButton(
                     onPressed: () async {
-                      if(_formKey.currentState!.validate()){
-                        UsernameModel usernameModel=UsernameModel(username: _nameController.text, email: _emailController.text, password: _passwordController.text, password2: _password2Controller.text);
-                        context.read<RegistrationViewModel>().addUser(usernameModel);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage(username:_nameController.text,)));
+                      if (_formKey.currentState!.validate()) {
+                        UsernameModel usernameModel = UsernameModel(
+                            username: _nameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            password2: _password2Controller.text);
+                        context
+                            .read<RegistrationViewModel>()
+                            .addUser(usernameModel);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                      username: _nameController.text,
+                                    )));
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -114,14 +147,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     )),
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Akkountingiz bo\'rmi unda  '),
-                  InkWell(onTap: (){
-                  Navigator.pop(context);
-                    },child: Text('Kirish',style: TextStyle(color: Colors.indigo),)),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Kirish',
+                        style: TextStyle(color: Colors.indigo),
+                      )),
                 ],
               )
             ],

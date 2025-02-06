@@ -18,25 +18,25 @@ class _ResultPageState extends State<ResultPage> {
         foregroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DataTable(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black), // Chiziqlarni ko'rsatish
-                borderRadius: BorderRadius.circular(8), // Burchaklarni yumshatish
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(8),
               ),
               columns: [
                 DataColumn(label: Text('Savol Nomlari', style: TextStyle(fontWeight: FontWeight.bold))),
-                DataColumn(label: Text('Vaqt (s)', style: TextStyle(fontWeight: FontWeight.bold))),
                 DataColumn(label: Text('Ball', style: TextStyle(fontWeight: FontWeight.bold))),
+                DataColumn(label: Text('Vaqt (s)', style: TextStyle(fontWeight: FontWeight.bold))),
               ],
               rows: List.generate(widget.timeList.length, (index) {
                 return DataRow(cells: [
                   DataCell(Text(widget.questionList[index].title)),
-                  DataCell(Text('${widget.timeList[index]} s')),
                   DataCell(Text('10')),
+                  DataCell(Text('${widget.timeList[index]} s')),
                 ]);
               }),
             ),
