@@ -43,7 +43,14 @@ class _HomePageState extends State<HomePage> {
       body: Consumer<TestViewModel>(builder: (context, myProvider, child) {
         if (myProvider.isLoading) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                spacing: 16,
+                children: [
+                  CircularProgressIndicator(),
+                  const Text('Yuklanmoqda')
+                ]),
           );
         } else {
           return Container(
@@ -53,8 +60,28 @@ class _HomePageState extends State<HomePage> {
               itemCount: myProvider.question.length,
               itemBuilder: (context, index) {
                 final category = myProvider.question[index];
-                return ListTile(
-                  title: Text(category.title),
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.indigo,
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TestPage(
+                                    questionList: category.questionList,
+                                  )));
+                    },
+                    title: Text(
+                      category.title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 );
               },
             ),

@@ -1,53 +1,37 @@
 import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:mabc2/moduls/question_model.dart';
 import 'package:mabc2/pages/result_page.dart';
-import 'package:provider/provider.dart';
-import '../view_model/test_view_model.dart';
 
 class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+  final List<QuestionModel> questionList;
+
+  TestPage({Key? key, required this.questionList}) : super(key: key);
 
   @override
   State<TestPage> createState() => _TestPageState();
 }
 
 class _TestPageState extends State<TestPage> {
-  int _listIndex = 0;
+  int index = 0;
   late Timer _timer;
-  int _remainingSeconds = 10000;
-  final int _totalTime = 10000;
-  double _progressValue = 0.0;
-  StreamSubscription<List<ConnectivityResult>>? subscription;
-  bool isInternetConnected = true;
+  int _timeCounter = 0;
+  List<int> times = []; // List to save timer values
 
   @override
   void initState() {
     super.initState();
-    context.read<TestViewModel>().getQuestion();
-    _startTimer();
+    startTimer();
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingSeconds > 0) {
-        setState(() {
-          _remainingSeconds--;
-          _progressValue = 1 - (_remainingSeconds / _totalTime);
-        });
-      } else {
-        _navigateToNextPage();
-      }
+  void startTimer() {
+    _timeCounter = 0;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _timeCounter++;
+      });
     });
-  }
-
-  void _navigateToNextPage() {
-    _timer.cancel();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => ResultPage()),
-    );
   }
 
   @override
@@ -56,64 +40,147 @@ class _TestPageState extends State<TestPage> {
     super.dispose();
   }
 
+  void saveTimeAndNavigate() {
+    setState(() {
+      times.add(_timeCounter);
+      index++;
+    });
+    _timer.cancel();
+    startTimer();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List questionList = context.watch<TestViewModel>().question;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Test"),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        alignment: Alignment.center,
-        child: Consumer<TestViewModel>(
-          builder: (context, myProvider, child) {
-            if (myProvider.isLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return Column(
-                children: [
-                  Card(
-                    elevation: 10,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
+      body: widget.questionList.isEmpty
+          ? Center(
+              child: Text('Test mavjud emas'),
+            )
+          : Column(
+              children: [
+                Stack(
+                  children: [
+                    Card(
+                      margin:
+                          const EdgeInsets.only(right: 16, left: 16, top: 60),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 4,
                       child: Column(
-                        spacing: 16.0,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            questionList[_listIndex].title,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                          Container(
+                            height: 180,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                              image: DecorationImage(
+                                image: widget.questionList[index].gift.isEmpty
+                                    ? NetworkImage(
+                                        widget.questionList[index].image)
+                                    : NetworkImage(
+                                        widget.questionList[index].gift),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          myProvider.question[_listIndex].gift.isNotEmpty
-                              ? Image.network(
-                                  myProvider.question[_listIndex].gift,
-                                )
-                              : Image.network(questionList[_listIndex].image),
-                          Text(
-                            questionList[_listIndex].description,
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.questionList[index].title,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  widget.questionList[index].description,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.black54),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
+                    Positioned(
+                      top: 20,
+                      left: MediaQuery.of(context).size.width / 2 - 30,
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 4,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "$_timeCounter",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: index == widget.questionList.length - 1
+                        ? () {
+                            times.add(_timeCounter);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResultPage(
+                                        timeList: times,
+                                    questionList: widget.questionList,
+                                      )),
+                            );
+                          }
+                        : saveTimeAndNavigate,
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        minimumSize: Size(double.infinity, 50),
+                        backgroundColor: Colors.indigo,
+                        foregroundColor: Colors.white),
+                    child: index == widget.questionList.length - 1
+                        ? Text(
+                            "Tugatish",
+                            style: TextStyle(fontSize: 18),
+                          )
+                        : Text(
+                            "Keyingisi",
+                            style: TextStyle(fontSize: 18),
+                          ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _listIndex++;
-                        });
-                      },
-                      child: Text('Keyingi'))
-                ],
-              );
-            }
-          },
-        ),
-      ),
+                ),
+              ],
+            ),
     );
   }
 }
