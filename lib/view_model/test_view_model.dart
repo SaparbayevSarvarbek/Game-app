@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mabc2/moduls/result_model.dart';
 import 'package:mabc2/services/api_service.dart';
 
 class TestViewModel extends ChangeNotifier {
@@ -14,8 +15,9 @@ class TestViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Future logOut(String refreshToken)async{
-    ApiService().logOut(refreshToken);
+  void pushResults(ResultModel resultModel){
+    ApiService().pushResults(resultModel);
     notifyListeners();
   }
+
 }

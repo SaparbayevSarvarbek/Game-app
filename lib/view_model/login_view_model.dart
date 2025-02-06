@@ -48,4 +48,8 @@ class LoginViewModel extends ChangeNotifier {
       );
     }
   }
+  Future logOut(String refreshToken)async{
+    ApiService().logOut(refreshToken);
+    notifyListeners();
+  }
 }

@@ -47,7 +47,7 @@ class _HomePageState extends State<LoginPage> {
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle_sharp),
+                        prefixIcon: Icon(Icons.account_circle_sharp,color:Colors.indigo),
                         labelText: 'Ism',
                         border: OutlineInputBorder()),
                     validator: (value) {
@@ -65,12 +65,13 @@ class _HomePageState extends State<LoginPage> {
                     decoration: InputDecoration(
                         labelText: 'Parol',
                         border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(Icons.lock,color: Colors.indigo,),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscureText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
+                            color: Colors.indigo,
                           ),
                           onPressed: () {
                             setState(() {

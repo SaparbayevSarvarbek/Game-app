@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:mabc2/moduls/question_model.dart';
+import 'package:mabc2/moduls/result_model.dart';
 import 'package:mabc2/moduls/username_model.dart';
 
 import '../moduls/category_model.dart';
@@ -71,6 +72,18 @@ class ApiService {
               headers: {HttpHeaders.contentTypeHeader: "multipart/form-data"}));
     } catch (e) {
       print('Logout serviceda xatolik: $e');
+    }
+  }
+
+  void pushResults(ResultModel resultModel) async {
+    try {
+      Response response = await dio.post(
+          'https://oyinlar.pythonanywhere.com/api/results/',
+          data: resultModel.toJson(),
+          options: Options(
+              headers: {HttpHeaders.contentTypeHeader: "application/json"}));
+    } catch (e) {
+      print('Push results serviceda xatolik $e');
     }
   }
 }
