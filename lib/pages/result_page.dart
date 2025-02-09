@@ -28,38 +28,40 @@ class _ResultPageState extends State<ResultPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DataTable(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(8),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DataTable(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                columns: [
+                  DataColumn(label: Text('Savol Nomlari', style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('Ball', style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('Vaqt (s)', style: TextStyle(fontWeight: FontWeight.bold))),
+                ],
+                rows: List.generate(widget.timeList.length, (index) {
+                  return DataRow(cells: [
+                    DataCell(Text(widget.questionList[index].title)),
+                    DataCell(Text('${scoreList[index]}')),
+                    DataCell(Text('${widget.timeList[index]} s')),
+                  ]);
+                }),
               ),
-              columns: [
-                DataColumn(label: Text('Savol Nomlari', style: TextStyle(fontWeight: FontWeight.bold))),
-                DataColumn(label: Text('Ball', style: TextStyle(fontWeight: FontWeight.bold))),
-                DataColumn(label: Text('Vaqt (s)', style: TextStyle(fontWeight: FontWeight.bold))),
-              ],
-              rows: List.generate(widget.timeList.length, (index) {
-                return DataRow(cells: [
-                  DataCell(Text(widget.questionList[index].title)),
-                  DataCell(Text('${scoreList[index]}')),
-                  DataCell(Text('${widget.timeList[index]} s')),
-                ]);
-              }),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Umumiy Ball: $totalScore',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 20),
+              Text(
+                'Umumiy Ball: $totalScore',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -91,6 +93,5 @@ class _ResultPageState extends State<ResultPage> {
       }
       totalScore=totalScore+scoreList[i];
     }
-
   }
 }

@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 spacing: 16,
                 children: [
                   CircularProgressIndicator(),
-                  const Text('Yuklanmoqda')
+                  const Text('Yuklanmoqda...')
                 ]),
           );
         } else {
@@ -134,14 +134,14 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => InstructionPage()));
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.info),
-              title: const Text('Dastur haqida'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => InfoPage()));
-              },
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.info),
+            //   title: const Text('Dastur haqida'),
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => InfoPage()));
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Chiqish'),

@@ -17,8 +17,7 @@ class _HomePageState extends State<LoginPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String? _message;
-  bool _obscureText = false;
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _HomePageState extends State<LoginPage> {
                 children: [
                   Text(
                     'Dasturga xush kelibsiz',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 40,
@@ -48,11 +47,11 @@ class _HomePageState extends State<LoginPage> {
                     controller: _nameController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.account_circle_sharp,color:Colors.indigo),
-                        labelText: 'Ism',
+                        labelText: 'Username',
                         border: OutlineInputBorder()),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Ismingni kiriting';
+                        return 'Username kiriting';
                       }
                     },
                   ),
