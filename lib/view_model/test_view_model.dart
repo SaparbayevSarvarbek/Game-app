@@ -19,5 +19,4 @@ class TestViewModel extends ChangeNotifier {
     ApiService().pushResults(resultModel);
     notifyListeners();
   }
-
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:mabc2/moduls/question_model.dart';
 import 'package:mabc2/moduls/result_model.dart';
 import 'package:mabc2/moduls/username_model.dart';
 

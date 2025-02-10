@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mabc2/pages/info_page.dart';
 import 'package:mabc2/pages/instruction_page.dart';
 import 'package:mabc2/pages/login_page.dart';
 import 'package:mabc2/pages/test_page.dart';

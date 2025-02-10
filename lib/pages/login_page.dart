@@ -150,15 +150,12 @@ class _HomePageState extends State<LoginPage> {
 
   Future<bool> checkInternet() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-
-    if (connectivityResult == ConnectivityResult.none) {
-      return false;
-    }
+    if (connectivityResult == ConnectivityResult.none) return false;
 
     try {
-      final result = await InternetAddress.lookup('example.com');
+      final result = await InternetAddress.lookup('google.com');
       return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-    } on SocketException catch (_) {
+    } catch (_) {
       return false;
     }
   }
