@@ -1,20 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/question_model.dart';
-import 'package:mabc2/moduls/score_model.dart';
-import 'package:mabc2/pages/first_test_page.dart';
+import 'package:mabc2/pages/eighth_test_page.dart';
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+import '../moduls/score_model.dart';
+
+class SeventhTestPage extends StatefulWidget {
+  const SeventhTestPage({super.key});
 
   @override
-  State<TestPage> createState() => _TestPageState();
+  State<SeventhTestPage> createState() => _SeventhTestPageState();
 }
 
-class _TestPageState extends State<TestPage> {
+class _SeventhTestPageState extends State<SeventhTestPage> {
   Timer? _timer;
-  int _elapsedSeconds = 0;
+  int _elapsedSeconds = 30;
   bool _isRunning = false;
   ScoreModel scoreModel = ScoreModel();
 
@@ -24,11 +24,16 @@ class _TestPageState extends State<TestPage> {
         _timer?.cancel();
         _isRunning = false;
       } else {
-        _elapsedSeconds = 0;
+        _elapsedSeconds = 30;
         _isRunning = true;
         _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           setState(() {
-            _elapsedSeconds++;
+            if (_elapsedSeconds > 0) {
+              _elapsedSeconds--;
+            } else {
+              _timer?.cancel();
+              _isRunning = false;
+            }
           });
         });
       }
@@ -55,14 +60,19 @@ class _TestPageState extends State<TestPage> {
                 children: [
                   Center(
                     child: Card(
+                      color: Colors.transparent,
                       elevation: 10,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.asset(
-                              'assets/images/game1.png',
+                            child: Container(
+                              width: 250,
+                              height: 300,
+                              child: Image.asset(
+                                'assets/images/game6.png',
+                              ),
                             ),
                           ),
                           Positioned(
@@ -87,7 +97,7 @@ class _TestPageState extends State<TestPage> {
                                           width: 50,
                                           height: 50,
                                           child: CircularProgressIndicator(
-                                            value: (_elapsedSeconds % 60) / 60,
+                                            value: (_elapsedSeconds / 30),
                                             strokeWidth: 5,
                                             valueColor:
                                                 const AlwaysStoppedAnimation<
@@ -118,23 +128,19 @@ class _TestPageState extends State<TestPage> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Tangalarni joylashtirish',
+                    'Bir oyoqli muvozanat',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text(
-                    'O\'ng qo\'l bilan bajaring',
+                    'Chap oyoq bilan bajaring',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
-                    '• 3-4 yoshli bolalar uchun 6 tanga',
+                    '• Maksimal vaqt 30 soniya',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
-                    '• 5-6 yoshli bolalar uchun 12 tanga',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const Text(
-                    '• Maksimal 2 ta sinov',
+                    '• Chap oyoq uchun maksimal 2 ta sinov',
                     style: TextStyle(fontSize: 18),
                   ),
                 ],
@@ -171,20 +177,23 @@ class _TestPageState extends State<TestPage> {
                           if (_isRunning) {
                             _timer?.cancel();
                             _isRunning = false;
-
                           }
-                          calculateScore(_elapsedSeconds);
+                          //calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
                           Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => FirstTestPage(),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      EighthTestPage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
                                 const curve = Curves.ease;
 
-                                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
                                 var offsetAnimation = animation.drive(tween);
 
                                 return SlideTransition(
@@ -196,11 +205,11 @@ class _TestPageState extends State<TestPage> {
                           );
                         });
                       },
-                      child: const Text('Keyingi'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
                         foregroundColor: Colors.white,
                       ),
+                      child: const Text('Keyingi'),
                     ),
                   ),
                 ],
@@ -210,33 +219,5 @@ class _TestPageState extends State<TestPage> {
         ],
       ),
     );
-  }
-
-  void calculateScore(int score) {
-    if (score <= 13) {
-      scoreModel.results.add(15);
-    } else if (score == 14) {
-      scoreModel.results.add(14);
-    } else if (score == 15) {
-      scoreModel.results.add(13);
-    } else if (score == 16) {
-      scoreModel.results.add(12);
-    } else if (score == 17) {
-      scoreModel.results.add(11);
-    } else if (score == 18) {
-      scoreModel.results.add(10);
-    } else if (score == 19) {
-      scoreModel.results.add(9);
-    } else if (score == 20) {
-      scoreModel.results.add(7);
-    } else if (score >= 21 && score <= 22) {
-      scoreModel.results.add(6);
-    } else if (score == 23) {
-      scoreModel.results.add(5);
-    } else if (score >= 24 && score <= 25) {
-      scoreModel.results.add(4);
-    } else {
-      scoreModel.results.add(1);
-    }
   }
 }

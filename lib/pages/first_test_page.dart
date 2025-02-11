@@ -55,6 +55,7 @@ class _FirstTestPageState extends State<FirstTestPage> {
                   Center(
                     child: Card(
                       elevation: 10,
+                      color: Colors.transparent,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -173,14 +174,32 @@ class _FirstTestPageState extends State<FirstTestPage> {
                           }
                           calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SecondTestPage()));
+                          Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (context, animation, secondaryAnimation) => SecondTestPage(),
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset.zero;
+                                const curve = Curves.ease;
+
+                                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
+
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
                         });
                       },
-                      child: const Text('Keyingi'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
                         foregroundColor: Colors.white,
                       ),
+                      child: const Text('Keyingi'),
                     ),
                   ),
                 ],

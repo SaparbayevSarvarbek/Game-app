@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:mabc2/pages/fourth_test_page.dart';
+import 'package:mabc2/pages/sixth_test_page.dart';
 
 import '../moduls/score_model.dart';
-class ThirdTestPage extends StatefulWidget {
-  const ThirdTestPage({super.key});
+
+class FifthTestPage extends StatefulWidget {
+  const FifthTestPage({super.key});
 
   @override
-  State<ThirdTestPage> createState() => _ThirdTestPageState();
+  State<FifthTestPage> createState() => _FifthTestPageState();
 }
 
-class _ThirdTestPageState extends State<ThirdTestPage> {
+class _FifthTestPageState extends State<FifthTestPage> {
   final ScoreModel scoreModel = ScoreModel();
   String? selectedOption;
   final List<String> options = [
-    "0-2",
+    "0",
+    "1",
+    "2",
     "3",
     "4",
     "5",
-    "6-7",
+    "6",
+    "7",
     "8",
     "9",
     "10",
@@ -28,17 +32,38 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
 
     int score;
     switch (selection) {
-      case "0":
+      case "10":
+        score = 16;
+        break;
+      case "9":
+        score = 14;
+        break;
+      case "8":
+        score = 13;
+        break;
+      case "7":
         score = 11;
         break;
-      case "1":
+      case "6":
+        score = 9;
+        break;
+      case "5":
+        score = 8;
+        break;
+      case "4":
         score = 7;
         break;
+      case "3":
+        score = 5;
+        break;
       case "2":
+        score = 4;
+        break;
+      case "1":
         score = 3;
         break;
-      case "3+":
-        score = 1;
+      case "0":
+        score = 0;
         break;
       default:
         score = 0;
@@ -62,32 +87,48 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
         children: [
           SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Card(
-                      elevation: 10,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
-                        child: Image.asset('assets/images/game3.png'),
-                      ),
-                    ),
-                  ),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Card(
+                            color: Colors.transparent,
+                            elevation: 10,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.asset('assets/images/game5.png'),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.transparent,
+                            elevation: 10,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.asset('assets/images/game52.png'),
+                            ),
+                          ),
+                        ],
+                      )),
                   const SizedBox(height: 16),
                   const Text(
-                    'Drawing Trail',
+                    'Beanbagni mat ustiga tashlash',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text(
                     '• 10 ta urinish',
-                    style: TextStyle(fontSize: 18,),
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
                     decoration: InputDecoration(
-                      labelText: "Ko'rsatkichni tanlang",
+                      labelText: "Aniq tushurishlar soni",
                       border: OutlineInputBorder(),
                     ),
                     value: selectedOption,
@@ -117,22 +158,26 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    if(selectedOption==null){
+                    if (selectedOption == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Tanlanmagan')),
+                        SnackBar(
+                            content: Text('Ushlab olishlar soni tanlamadi')),
                       );
-                    }else{
+                    } else {
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) => FourthTestPage(),
-                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  SixthTestPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0);
                             const end = Offset.zero;
                             const curve = Curves.ease;
-                            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
                             var offsetAnimation = animation.drive(tween);
-
                             return SlideTransition(
                               position: offsetAnimation,
                               child: child,
@@ -142,8 +187,9 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                       );
                     }
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo,foregroundColor: Colors.white
-                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      foregroundColor: Colors.white),
                   child: const Text("Keyingi"),
                 ),
               ),

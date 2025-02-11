@@ -1,18 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/question_model.dart';
-import 'package:mabc2/moduls/score_model.dart';
-import 'package:mabc2/pages/first_test_page.dart';
+import 'package:mabc2/pages/ninth_test_page.dart';
+import 'package:mabc2/pages/second_test_page.dart';
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+import '../moduls/score_model.dart';
+
+class EighthTestPage extends StatefulWidget {
+  const EighthTestPage({super.key});
 
   @override
-  State<TestPage> createState() => _TestPageState();
+  State<EighthTestPage> createState() => _EighthTestPageState();
 }
 
-class _TestPageState extends State<TestPage> {
+class _EighthTestPageState extends State<EighthTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
@@ -55,14 +56,19 @@ class _TestPageState extends State<TestPage> {
                 children: [
                   Center(
                     child: Card(
+                      color: Colors.transparent,
                       elevation: 10,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.asset(
-                              'assets/images/game1.png',
+                            child: Container(
+                              width: 250,
+                              height: 300,
+                              child: Image.asset(
+                                'assets/images/game7.png',
+                              ),
                             ),
                           ),
                           Positioned(
@@ -87,7 +93,7 @@ class _TestPageState extends State<TestPage> {
                                           width: 50,
                                           height: 50,
                                           child: CircularProgressIndicator(
-                                            value: (_elapsedSeconds % 60) / 60,
+                                            value: (_elapsedSeconds / 30),
                                             strokeWidth: 5,
                                             valueColor:
                                                 const AlwaysStoppedAnimation<
@@ -118,23 +124,15 @@ class _TestPageState extends State<TestPage> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Tangalarni joylashtirish',
+                    'Oyoq uchida yurish',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text(
-                    'O\'ng qo\'l bilan bajaring',
+                    '• 4,5 m chiziq',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
-                    '• 3-4 yoshli bolalar uchun 6 tanga',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const Text(
-                    '• 5-6 yoshli bolalar uchun 12 tanga',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const Text(
-                    '• Maksimal 2 ta sinov',
+                    '• Maksimal ball 15 qadam yoki bola qator oxiriga yetib borganda',
                     style: TextStyle(fontSize: 18),
                   ),
                 ],
@@ -171,20 +169,23 @@ class _TestPageState extends State<TestPage> {
                           if (_isRunning) {
                             _timer?.cancel();
                             _isRunning = false;
-
                           }
                           calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
                           Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => FirstTestPage(),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      NinthTestPage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
                                 const curve = Curves.ease;
 
-                                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
                                 var offsetAnimation = animation.drive(tween);
 
                                 return SlideTransition(
@@ -196,11 +197,11 @@ class _TestPageState extends State<TestPage> {
                           );
                         });
                       },
-                      child: const Text('Keyingi'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
                         foregroundColor: Colors.white,
                       ),
+                      child: const Text('Keyingi'),
                     ),
                   ),
                 ],
