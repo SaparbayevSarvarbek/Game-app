@@ -7,7 +7,9 @@ import 'package:mabc2/pages/second_test_page.dart';
 import '../moduls/score_model.dart';
 
 class EighthTestPage extends StatefulWidget {
-  const EighthTestPage({super.key});
+  List list;
+
+  EighthTestPage({Key? key, required this.list}) : super(key: key);
 
   @override
   State<EighthTestPage> createState() => _EighthTestPageState();
@@ -177,7 +179,7 @@ class _EighthTestPageState extends State<EighthTestPage> {
                             PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) =>
-                                      NinthTestPage(),
+                                      NinthTestPage(list: widget.list,),
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
@@ -215,29 +217,29 @@ class _EighthTestPageState extends State<EighthTestPage> {
 
   void calculateScore(int score) {
     if (score <= 13) {
-      scoreModel.results.add(15);
+      widget.list.add(15);
     } else if (score == 14) {
-      scoreModel.results.add(14);
+      widget.list.add(14);
     } else if (score == 15) {
-      scoreModel.results.add(13);
+      widget.list.add(13);
     } else if (score == 16) {
-      scoreModel.results.add(12);
+      widget.list.add(12);
     } else if (score == 17) {
-      scoreModel.results.add(11);
+      widget.list.add(11);
     } else if (score == 18) {
-      scoreModel.results.add(10);
+      widget.list.add(10);
     } else if (score == 19) {
-      scoreModel.results.add(9);
+      widget.list.add(9);
     } else if (score == 20) {
-      scoreModel.results.add(7);
+      widget.list.add(7);
     } else if (score >= 21 && score <= 22) {
-      scoreModel.results.add(6);
+      widget.list.add(6);
     } else if (score == 23) {
-      scoreModel.results.add(5);
+      widget.list.add(5);
     } else if (score >= 24 && score <= 25) {
-      scoreModel.results.add(4);
+      widget.list.add(4);
     } else {
-      scoreModel.results.add(1);
+      widget.list.add(1);
     }
   }
 }

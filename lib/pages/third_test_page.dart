@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mabc2/pages/fourth_test_page.dart';
 
 import '../moduls/score_model.dart';
+
 class ThirdTestPage extends StatefulWidget {
-  const ThirdTestPage({super.key});
+  List list;
+
+  ThirdTestPage({Key? key, required this.list}) : super(key: key);
 
   @override
   State<ThirdTestPage> createState() => _ThirdTestPageState();
@@ -45,8 +48,8 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
     }
 
     setState(() {
-      scoreModel.results.add(score);
-      print("Natija qo'shildi: $score");
+      widget.list.add(score);
+      print("Natija qo'shildi: ${widget.list}");
     });
   }
 
@@ -62,7 +65,8 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
         children: [
           SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +86,9 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                   ),
                   const Text(
                     '• 10 ta urinish',
-                    style: TextStyle(fontSize: 18,),
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
@@ -117,20 +123,26 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    if(selectedOption==null){
+                    if (selectedOption == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Tanlanmagan')),
                       );
-                    }else{
+                    } else {
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) => FourthTestPage(),
-                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  FourthTestPage(
+                            list: widget.list,
+                          ),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0);
                             const end = Offset.zero;
                             const curve = Curves.ease;
-                            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
                             var offsetAnimation = animation.drive(tween);
 
                             return SlideTransition(
@@ -142,8 +154,9 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                       );
                     }
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo,foregroundColor: Colors.white
-                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      foregroundColor: Colors.white),
                   child: const Text("Keyingi"),
                 ),
               ),

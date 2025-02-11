@@ -6,7 +6,8 @@ import 'package:mabc2/pages/eighth_test_page.dart';
 import '../moduls/score_model.dart';
 
 class SeventhTestPage extends StatefulWidget {
-  const SeventhTestPage({super.key});
+  List list;
+  SeventhTestPage({Key? key,required this.list}):super(key:key);
 
   @override
   State<SeventhTestPage> createState() => _SeventhTestPageState();
@@ -160,11 +161,11 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       onPressed: _toggleTimer,
-                      child: Text(_isRunning ? 'Stop' : 'Start'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _isRunning ? Colors.red : Colors.green,
                         foregroundColor: Colors.white,
                       ),
+                      child: Text(_isRunning ? 'Stop' : 'Start'),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -185,7 +186,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                             PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) =>
-                                      EighthTestPage(),
+                                      EighthTestPage(list: widget.list,),
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
@@ -219,5 +220,27 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
         ],
       ),
     );
+  }
+  void calculateScore(int score) {
+    int a=30-score;
+    if (a <= 30 && a>=29) {
+      widget.list.add(14);
+    } else if (a >= 24 && a<=28) {
+      widget.list.add(11);
+    } else if (a >= 18 && a<=23) {
+      widget.list.add(10);
+    } else if (a >= 14 && a<=17) {
+      widget.list.add(9);
+    } else if (a >= 7 && a<=13) {
+      widget.list.add(8);
+    } else if (a >= 4 && a<=6) {
+      widget.list.add(7);
+    } else if (a == 3) {
+      widget.list.add(6);
+    } else if (a == 2) {
+      widget.list.add(5);
+    } else {
+      widget.list.add(3);
+    }
   }
 }

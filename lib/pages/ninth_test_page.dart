@@ -3,7 +3,8 @@ import 'package:mabc2/pages/result_page.dart';
 
 import '../moduls/score_model.dart';
 class NinthTestPage extends StatefulWidget {
-  const NinthTestPage({super.key});
+  List list;
+  NinthTestPage({Key? key,required this.list});
 
   @override
   State<NinthTestPage> createState() => _NinthTestPageState();
@@ -16,13 +17,11 @@ class _NinthTestPageState extends State<NinthTestPage> {
     "5",
     "4",
     "3",
-    "3",
     "0-2",
   ];
 
   void calculateScore(String? selection) {
     if (selection == null) return;
-
     int score;
     switch (selection) {
       case "5":
@@ -42,7 +41,7 @@ class _NinthTestPageState extends State<NinthTestPage> {
     }
 
     setState(() {
-      scoreModel.results.add(score);
+      widget.list.add(score);
       print("Natija qo'shildi: $score");
     });
   }
@@ -134,7 +133,7 @@ class _NinthTestPageState extends State<NinthTestPage> {
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) => ResultPage(timeList: [], questionList: []),
+                          pageBuilder: (context, animation, secondaryAnimation) => ResultPage(answerList: widget.list,),
                           transitionsBuilder: (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0);
                             const end = Offset.zero;

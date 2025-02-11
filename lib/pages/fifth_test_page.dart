@@ -4,7 +4,8 @@ import 'package:mabc2/pages/sixth_test_page.dart';
 import '../moduls/score_model.dart';
 
 class FifthTestPage extends StatefulWidget {
-  const FifthTestPage({super.key});
+  List list;
+  FifthTestPage({Key? key,required this.list});
 
   @override
   State<FifthTestPage> createState() => _FifthTestPageState();
@@ -70,7 +71,7 @@ class _FifthTestPageState extends State<FifthTestPage> {
     }
 
     setState(() {
-      scoreModel.results.add(score);
+     widget.list.add(score);
       print("Natija qo'shildi: $score");
     });
   }
@@ -169,7 +170,7 @@ class _FifthTestPageState extends State<FifthTestPage> {
                         PageRouteBuilder(
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  SixthTestPage(),
+                                  SixthTestPage(list: widget.list,),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0);

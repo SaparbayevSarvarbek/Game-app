@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/question_model.dart';
-import 'package:mabc2/moduls/score_model.dart';
 import 'package:mabc2/pages/first_test_page.dart';
 
 class TestPage extends StatefulWidget {
@@ -16,7 +14,7 @@ class _TestPageState extends State<TestPage> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
-  ScoreModel scoreModel = ScoreModel();
+  List scoreBall=[];
 
   void _toggleTimer() {
     setState(() {
@@ -174,11 +172,10 @@ class _TestPageState extends State<TestPage> {
 
                           }
                           calculateScore(_elapsedSeconds);
-                          print("Vaqt qo‘shildi: ${scoreModel.results}s");
                           Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => FirstTestPage(),
+                              pageBuilder: (context, animation, secondaryAnimation) => FirstTestPage(list: scoreBall,),
                               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
@@ -214,29 +211,29 @@ class _TestPageState extends State<TestPage> {
 
   void calculateScore(int score) {
     if (score <= 13) {
-      scoreModel.results.add(15);
+      scoreBall.add(15);
     } else if (score == 14) {
-      scoreModel.results.add(14);
+      scoreBall.add(14);
     } else if (score == 15) {
-      scoreModel.results.add(13);
+      scoreBall.add(13);
     } else if (score == 16) {
-      scoreModel.results.add(12);
+      scoreBall.add(12);
     } else if (score == 17) {
-      scoreModel.results.add(11);
+      scoreBall.add(11);
     } else if (score == 18) {
-      scoreModel.results.add(10);
+      scoreBall.add(10);
     } else if (score == 19) {
-      scoreModel.results.add(9);
+      scoreBall.add(9);
     } else if (score == 20) {
-      scoreModel.results.add(7);
+      scoreBall.add(7);
     } else if (score >= 21 && score <= 22) {
-      scoreModel.results.add(6);
+      scoreBall.add(6);
     } else if (score == 23) {
-      scoreModel.results.add(5);
+      scoreBall.add(5);
     } else if (score >= 24 && score <= 25) {
-      scoreModel.results.add(4);
+      scoreBall.add(4);
     } else {
-      scoreModel.results.add(1);
+      scoreBall.add(1);
     }
   }
 }

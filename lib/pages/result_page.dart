@@ -1,27 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/result_model.dart';
-import 'package:mabc2/view_model/test_view_model.dart';
-import 'package:provider/provider.dart';
+
 class ResultPage extends StatefulWidget {
-  List timeList;
-  List questionList;
-  ResultPage({super.key, required this.timeList,required this.questionList});
+  List answerList;
+
+  ResultPage({super.key, required this.answerList});
+
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
-  int totalScore=0;
-  List<int> scoreList=[];
-@override
+  double totalScore = 0;
+  List<double> componentList = [];
+  List<String> questionList = [
+    'Posting Coins',
+    'Posting Coins',
+    'Threading Beads',
+    'Drawing Trail Age Band 1',
+    'Catching Beanbag',
+    'Throwing Beanbag onto Mat',
+    'One-Leg Balance',
+    'One-Leg Balance',
+    'Walking Heels Raised',
+    'Jumping on Mats',
+  ];
+  List<String> groupQuestionList=[
+    'Posting Coins left, Posting Coins right,Threading Beads,Drawing Trail Age Band 1',
+    'Catching Beanbag,Throwing Beanbag onto Mat',
+    'One-Leg Balance right,One-Leg Balance left,Walking Heels Raised,Jumping on Mats',
+    'Total score'
+  ];
+
+  @override
   void initState() {
     super.initState();
-    checkScore(widget.timeList);
-    context.read<TestViewModel>().pushResults(ResultModel(allResult: totalScore.toString(), results: scoreList, userId: 1));
+    checkScore(widget.answerList);
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Natija'),
@@ -31,67 +48,76 @@ class _ResultPageState extends State<ResultPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(6.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DataTable(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(8),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                DataTable(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  columns: [
+                    DataColumn(
+                        label: Text('Savol Nomlari',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Ball',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                  ],
+                  rows: List.generate(widget.answerList.length, (index) {
+                    return DataRow(cells: [
+                      DataCell(Text(questionList[index])),
+                      DataCell(Text('${widget.answerList[index]}')),
+                    ]);
+                  }),
                 ),
-                columns: [
-                  DataColumn(label: Text('Savol Nomlari', style: TextStyle(fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('Ball', style: TextStyle(fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('Vaqt (s)', style: TextStyle(fontWeight: FontWeight.bold))),
-                ],
-                rows: List.generate(widget.timeList.length, (index) {
-                  return DataRow(cells: [
-                    DataCell(Text(widget.questionList[index].title)),
-                    DataCell(Text('${scoreList[index]}')),
-                    DataCell(Text('${widget.timeList[index]} s')),
-                  ]);
-                }),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Umumiy Ball: $totalScore',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                SizedBox(height: 20),
+                DataTable(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  columns: [
+                    DataColumn(
+                        label: Text('Savol Nomlari',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Ball',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                  ],
+                  rows: List.generate(groupQuestionList.length, (index) {
+                    return DataRow(cells: [
+                      DataCell(Text(groupQuestionList[index])),
+                      DataCell(Text('${componentList[index]}')),
+                    ]);
+                  }),
                 ),
-              ),
-            ],
+                Text(
+                  'Umumiy Ball: $totalScore',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-  void checkScore(List timeList) {
-    for(int i=0;i<timeList.length;i++){
-      if(timeList[i]<=9){
-        scoreList.add(16);
-      }else if(timeList[i]<=10){
-        scoreList.add(14);
-      }else if(timeList[i]<=11){
-        scoreList.add(13);
-      }else if(timeList[i]<=12){
-        scoreList.add(12);
-      }else if(timeList[i]<=13){
-        scoreList.add(11);
-      }else if(timeList[i]<=14){
-        scoreList.add(10);
-      }else if(timeList[i]<=15){
-        scoreList.add(9);
-      }else if(timeList[i]<=16){
-        scoreList.add(8);
-      }else if(timeList[i]<=17){
-        scoreList.add(6);
-      }else if(timeList[i]<=18){
-        scoreList.add(4);
-      }else{
-        scoreList.add(1);
-      }
-      totalScore=totalScore+scoreList[i];
+
+  void checkScore(List scoreList) {
+    if (scoreList.length < 10) {
+      return;
     }
+    totalScore = scoreList.fold(0, (sum, item) => sum + item);
+    double item = (scoreList[0] + scoreList[1]) / 2;
+    componentList.add((item + scoreList[2] + scoreList[3]) / 3);
+    componentList.add((scoreList[4] + scoreList[5]) / 2);
+    double item1 = (scoreList[6] + scoreList[7]) / 2;
+    componentList.add((item1 + scoreList[8] + scoreList[9]) / 3);
+    componentList.add(totalScore / 10);
   }
 }

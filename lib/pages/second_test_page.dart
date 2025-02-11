@@ -6,7 +6,8 @@ import 'package:mabc2/pages/third_test_page.dart';
 import '../moduls/score_model.dart';
 
 class SecondTestPage extends StatefulWidget {
-  const SecondTestPage({super.key});
+  List list;
+  SecondTestPage({Key? key,required this.list}):super(key: key);
 
   @override
   State<SecondTestPage> createState() => _SecondTestPageState();
@@ -173,7 +174,7 @@ class _SecondTestPageState extends State<SecondTestPage> {
                           Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => ThirdTestPage(),
+                              pageBuilder: (context, animation, secondaryAnimation) => ThirdTestPage(list: widget.list,),
                               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
@@ -209,29 +210,29 @@ class _SecondTestPageState extends State<SecondTestPage> {
 
   void calculateScore(int score) {
     if (score <= 13) {
-      scoreModel.results.add(15);
+      widget.list.add(15);
     } else if (score == 14) {
-      scoreModel.results.add(14);
+      widget.list.add(14);
     } else if (score == 15) {
-      scoreModel.results.add(13);
+      widget.list.add(13);
     } else if (score == 16) {
-      scoreModel.results.add(12);
+      widget.list.add(12);
     } else if (score == 17) {
-      scoreModel.results.add(11);
+      widget.list.add(11);
     } else if (score == 18) {
-      scoreModel.results.add(10);
+      widget.list.add(10);
     } else if (score == 19) {
-      scoreModel.results.add(9);
+      widget.list.add(9);
     } else if (score == 20) {
-      scoreModel.results.add(7);
+      widget.list.add(7);
     } else if (score >= 21 && score <= 22) {
-      scoreModel.results.add(6);
+      widget.list.add(6);
     } else if (score == 23) {
-      scoreModel.results.add(5);
+      widget.list.add(5);
     } else if (score >= 24 && score <= 25) {
-      scoreModel.results.add(4);
+      widget.list.add(4);
     } else {
-      scoreModel.results.add(1);
+      widget.list.add(1);
     }
   }
 }
