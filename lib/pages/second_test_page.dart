@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/question_model.dart';
-import 'package:mabc2/moduls/score_model.dart';
-import 'package:mabc2/pages/first_test_page.dart';
+import 'package:mabc2/pages/third_test_page.dart';
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+import '../moduls/score_model.dart';
+
+class SecondTestPage extends StatefulWidget {
+  const SecondTestPage({super.key});
 
   @override
-  State<TestPage> createState() => _TestPageState();
+  State<SecondTestPage> createState() => _SecondTestPageState();
 }
 
-class _TestPageState extends State<TestPage> {
+class _SecondTestPageState extends State<SecondTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
@@ -62,7 +62,7 @@ class _TestPageState extends State<TestPage> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
                             child: Image.asset(
-                              'assets/images/game1.png',
+                              'assets/images/game2.png',
                             ),
                           ),
                           Positioned(
@@ -118,19 +118,15 @@ class _TestPageState extends State<TestPage> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Tangalarni joylashtirish',
+                    'Munchoqlarni ipga tizish',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text(
-                    'O\'ng qo\'l bilan bajaring',
+                    '• 3-4 yoshli bolalar uchun 6 ta munchoq',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
-                    '• 3-4 yoshli bolalar uchun 6 tanga',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const Text(
-                    '• 5-6 yoshli bolalar uchun 12 tanga',
+                    '• 5-6 yoshli bolalar uchun 12 ta munchoq',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
@@ -171,14 +167,13 @@ class _TestPageState extends State<TestPage> {
                           if (_isRunning) {
                             _timer?.cancel();
                             _isRunning = false;
-
                           }
                           calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FirstTestPage()));
+                                  builder: (context) => ThirdTestPage()));
                         });
                       },
                       child: const Text('Keyingi'),

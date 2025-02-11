@@ -40,54 +40,20 @@ class _HomePageState extends State<HomePage> {
           title: Text('Asosiy sahifa'),
         ),
       ),
-      body: Consumer<TestViewModel>(builder: (context, myProvider, child) {
-        if (myProvider.isLoading) {
-          return Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                spacing: 16,
-                children: [
-                  CircularProgressIndicator(),
-                  const Text('Yuklanmoqda...')
-                ]),
-          );
-        } else {
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            padding: EdgeInsets.all(10.0),
-            child: ListView.builder(
-              itemCount: myProvider.question.length,
-              itemBuilder: (context, index) {
-                final category = myProvider.question[index];
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 60,
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.indigo,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TestPage(
-                                    questionList: category.questionList,
-                                  )));
-                    },
-                    title: Text(
-                      category.title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        }
-      }),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 50,
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TestPage()));
+          },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+          child: Text('6-11 yosh oralig\'i'),
+        ),
+      ),
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(

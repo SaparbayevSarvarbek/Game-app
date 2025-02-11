@@ -1,22 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mabc2/moduls/question_model.dart';
-import 'package:mabc2/moduls/score_model.dart';
-import 'package:mabc2/pages/first_test_page.dart';
+import 'package:mabc2/pages/second_test_page.dart';
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+import '../moduls/score_model.dart';
+class FirstTestPage extends StatefulWidget {
+  const FirstTestPage({super.key});
 
   @override
-  State<TestPage> createState() => _TestPageState();
+  State<FirstTestPage> createState() => _FirstTestPageState();
 }
 
-class _TestPageState extends State<TestPage> {
+class _FirstTestPageState extends State<FirstTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
-  ScoreModel scoreModel = ScoreModel();
+  ScoreModel scoreModel=ScoreModel();
 
   void _toggleTimer() {
     setState(() {
@@ -48,7 +47,7 @@ class _TestPageState extends State<TestPage> {
           SingleChildScrollView(
             child: Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +72,7 @@ class _TestPageState extends State<TestPage> {
                                 color: Colors.black54,
                                 shape: BoxShape.circle,
                                 border:
-                                    Border.all(color: Colors.white, width: 2),
+                                Border.all(color: Colors.white, width: 2),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -90,12 +89,12 @@ class _TestPageState extends State<TestPage> {
                                             value: (_elapsedSeconds % 60) / 60,
                                             strokeWidth: 5,
                                             valueColor:
-                                                const AlwaysStoppedAnimation<
-                                                    Color>(
+                                            const AlwaysStoppedAnimation<
+                                                Color>(
                                               Colors.blueAccent,
                                             ),
                                             backgroundColor:
-                                                Colors.grey.shade300,
+                                            Colors.grey.shade300,
                                           ),
                                         ),
                                         Text(
@@ -122,7 +121,7 @@ class _TestPageState extends State<TestPage> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text(
-                    'O\'ng qo\'l bilan bajaring',
+                    'Chap qo\'l bilan bajaring',
                     style: TextStyle(fontSize: 18),
                   ),
                   const Text(
@@ -156,7 +155,7 @@ class _TestPageState extends State<TestPage> {
                       onPressed: _toggleTimer,
                       child: Text(_isRunning ? 'Stop' : 'Start'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _isRunning ? Colors.red : Colors.green,
+                        backgroundColor: _isRunning ?Colors.red :Colors.green,
                         foregroundColor: Colors.white,
                       ),
                     ),
@@ -171,14 +170,10 @@ class _TestPageState extends State<TestPage> {
                           if (_isRunning) {
                             _timer?.cancel();
                             _isRunning = false;
-
                           }
                           calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FirstTestPage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SecondTestPage()));
                         });
                       },
                       child: const Text('Keyingi'),
@@ -196,7 +191,6 @@ class _TestPageState extends State<TestPage> {
       ),
     );
   }
-
   void calculateScore(int score) {
     if (score <= 13) {
       scoreModel.results.add(15);
