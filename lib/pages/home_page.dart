@@ -40,19 +40,109 @@ class _HomePageState extends State<HomePage> {
           title: Text('Asosiy sahifa'),
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 50,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TestPage()));
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.indigo, foregroundColor: Colors.white),
-            child: Text('6-11 yosh oralig\'i'),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                'Bolalar harakatni baholash testi',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Card(
+                elevation: 10,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image.asset('assets/images/home.jpg')),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Test haqida umumiy ma\'lumot:',
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '• Bolalarning harakatni baholash testi',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '• Bolalarning rivojlanishdagi kechikish yoki buzilishini aniqlash',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '• Testda beriladigan mashqlar',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • Qo‘l chaqqonligi',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • Nishonga otish va tutib olish',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • Muvozanat mashqlari',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '• Har bir yosh guruhiga 10 ta topshiriq',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '• Yosh oralig‘i 3 yosh – 16 yosh 11 oy',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • 3:0 – 6:11',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • 7:0 – 10:11',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '    • 11:0 – 16:11',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => TestPage()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      foregroundColor: Colors.white),
+                  child: Text('Testni boshlash'),
+                ),
+              )
+            ],
           ),
         ),
       ),

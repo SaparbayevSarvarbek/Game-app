@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mabc2/pages/ninth_test_page.dart';
-import 'package:mabc2/pages/second_test_page.dart';
 
 import '../moduls/score_model.dart';
 
@@ -83,7 +82,7 @@ class _EighthTestPageState extends State<EighthTestPage> {
                                 color: Colors.black54,
                                 shape: BoxShape.circle,
                                 border:
-                                    Border.all(color: Colors.white, width: 2),
+                                Border.all(color: Colors.white, width: 2),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -97,15 +96,15 @@ class _EighthTestPageState extends State<EighthTestPage> {
                                           width: 50,
                                           height: 50,
                                           child: CircularProgressIndicator(
-                                            value: (_elapsedSeconds / 30),
+                                            value: (_elapsedSeconds % 60) / 60,
                                             strokeWidth: 5,
                                             valueColor:
-                                                const AlwaysStoppedAnimation<
-                                                    Color>(
+                                            const AlwaysStoppedAnimation<
+                                                Color>(
                                               Colors.blueAccent,
                                             ),
                                             backgroundColor:
-                                                Colors.grey.shade300,
+                                            Colors.grey.shade300,
                                           ),
                                         ),
                                         Text(
