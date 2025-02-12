@@ -22,9 +22,8 @@ class _FourthTestPageState extends State<FourthTestPage> {
   ];
 
   void calculateScore(String? selection) {
-    if (selection == null) return;
-
     int score;
+    if (selection == null) score=0;
     switch (selection) {
       case "10":
         score = 16;
@@ -135,7 +134,6 @@ class _FourthTestPageState extends State<FourthTestPage> {
                       setState(() {
                         selectedOption = value;
                       });
-                      calculateScore(value);
                     },
                   ),
                 ],
@@ -157,6 +155,7 @@ class _FourthTestPageState extends State<FourthTestPage> {
                             content: Text('Ushlab olishlar soni tanlamadi')),
                       );
                     }else{
+                      calculateScore(selectedOption);
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(

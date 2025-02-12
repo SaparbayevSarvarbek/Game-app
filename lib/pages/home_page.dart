@@ -40,18 +40,20 @@ class _HomePageState extends State<HomePage> {
           title: Text('Asosiy sahifa'),
         ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => TestPage()));
-          },
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigo, foregroundColor: Colors.white),
-          child: Text('6-11 yosh oralig\'i'),
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => TestPage()));
+            },
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+            child: Text('6-11 yosh oralig\'i'),
+          ),
         ),
       ),
       drawer: Drawer(

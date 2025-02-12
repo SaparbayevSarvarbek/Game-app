@@ -17,9 +17,11 @@ class _SecondTestPageState extends State<SecondTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
+  bool isClick=false;
   ScoreModel scoreModel = ScoreModel();
 
   void _toggleTimer() {
+    isClick=true;
     setState(() {
       if (_isRunning) {
         _timer?.cancel();
@@ -209,30 +211,34 @@ class _SecondTestPageState extends State<SecondTestPage> {
   }
 
   void calculateScore(int score) {
-    if (score <= 13) {
-      widget.list.add(15);
-    } else if (score == 14) {
-      widget.list.add(14);
-    } else if (score == 15) {
-      widget.list.add(13);
-    } else if (score == 16) {
-      widget.list.add(12);
-    } else if (score == 17) {
-      widget.list.add(11);
-    } else if (score == 18) {
-      widget.list.add(10);
-    } else if (score == 19) {
-      widget.list.add(9);
-    } else if (score == 20) {
-      widget.list.add(7);
-    } else if (score >= 21 && score <= 22) {
-      widget.list.add(6);
-    } else if (score == 23) {
-      widget.list.add(5);
-    } else if (score >= 24 && score <= 25) {
-      widget.list.add(4);
-    } else {
-      widget.list.add(1);
-    }
+   if(isClick){
+     if (score <= 13) {
+       widget.list.add(15);
+     } else if (score == 14) {
+       widget.list.add(14);
+     } else if (score == 15) {
+       widget.list.add(13);
+     } else if (score == 16) {
+       widget.list.add(12);
+     } else if (score == 17) {
+       widget.list.add(11);
+     } else if (score == 18) {
+       widget.list.add(10);
+     } else if (score == 19) {
+       widget.list.add(9);
+     } else if (score == 20) {
+       widget.list.add(7);
+     } else if (score >= 21 && score <= 22) {
+       widget.list.add(6);
+     } else if (score == 23) {
+       widget.list.add(5);
+     } else if (score >= 24 && score <= 25) {
+       widget.list.add(4);
+     } else {
+       widget.list.add(1);
+     }
+   }else{
+     widget.list.add(0);
+   }
   }
 }

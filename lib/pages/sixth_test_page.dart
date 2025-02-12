@@ -17,9 +17,11 @@ class _SixthTestPageState extends State<SixthTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 30;
   bool _isRunning = false;
+  bool isClick = false;
   ScoreModel scoreModel = ScoreModel();
 
   void _toggleTimer() {
+    isClick=true;
     setState(() {
       if (_isRunning) {
         _timer?.cancel();
@@ -234,25 +236,29 @@ class _SixthTestPageState extends State<SixthTestPage> {
     );
   }
   void calculateScore(int score) {
-    int a=30-score;
-    if (a == 30 ) {
-      widget.list.add(13);
-    } else if (a >= 28 && a<=29) {
-      widget.list.add(10);
-    } else if (a >= 24 && a<=27) {
-      widget.list.add(9);
-    } else if (a >= 15 && a<=23) {
-      widget.list.add(8);
-    } else if (a >= 11 && a<=14) {
-      widget.list.add(7);
-    } else if (a >= 7 && a<=10) {
-      widget.list.add(6);
-    } else if (a == 6) {
-      widget.list.add(5);
-    } else if (a >= 4 && a<=5) {
-      widget.list.add(4);
-    } else {
-      widget.list.add(3);
-    }
+   if(isClick){
+     int a=30-score;
+     if (a == 30 ) {
+       widget.list.add(13);
+     } else if (a >= 28 && a<=29) {
+       widget.list.add(10);
+     } else if (a >= 24 && a<=27) {
+       widget.list.add(9);
+     } else if (a >= 15 && a<=23) {
+       widget.list.add(8);
+     } else if (a >= 11 && a<=14) {
+       widget.list.add(7);
+     } else if (a >= 7 && a<=10) {
+       widget.list.add(6);
+     } else if (a == 6) {
+       widget.list.add(5);
+     } else if (a >= 4 && a<=5) {
+       widget.list.add(4);
+     } else {
+       widget.list.add(3);
+     }
+   }else{
+     widget.list.add(0);
+   }
   }
 }

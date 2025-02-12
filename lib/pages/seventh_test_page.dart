@@ -17,6 +17,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
   Timer? _timer;
   int _elapsedSeconds = 30;
   bool _isRunning = false;
+  bool isClick = false;
   ScoreModel scoreModel = ScoreModel();
 
   void _toggleTimer() {
@@ -179,7 +180,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                             _timer?.cancel();
                             _isRunning = false;
                           }
-                          //calculateScore(_elapsedSeconds);
+                          calculateScore(_elapsedSeconds);
                           print("Vaqt qo‘shildi: ${scoreModel.results}s");
                           Navigator.pushReplacement(
                             context,
@@ -222,25 +223,29 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
     );
   }
   void calculateScore(int score) {
-    int a=30-score;
-    if (a <= 30 && a>=29) {
-      widget.list.add(14);
-    } else if (a >= 24 && a<=28) {
-      widget.list.add(11);
-    } else if (a >= 18 && a<=23) {
-      widget.list.add(10);
-    } else if (a >= 14 && a<=17) {
-      widget.list.add(9);
-    } else if (a >= 7 && a<=13) {
-      widget.list.add(8);
-    } else if (a >= 4 && a<=6) {
-      widget.list.add(7);
-    } else if (a == 3) {
-      widget.list.add(6);
-    } else if (a == 2) {
-      widget.list.add(5);
-    } else {
-      widget.list.add(3);
-    }
+   if(isClick){
+     int a=30-score;
+     if (a <= 30 && a>=29) {
+       widget.list.add(14);
+     } else if (a >= 24 && a<=28) {
+       widget.list.add(11);
+     } else if (a >= 18 && a<=23) {
+       widget.list.add(10);
+     } else if (a >= 14 && a<=17) {
+       widget.list.add(9);
+     } else if (a >= 7 && a<=13) {
+       widget.list.add(8);
+     } else if (a >= 4 && a<=6) {
+       widget.list.add(7);
+     } else if (a == 3) {
+       widget.list.add(6);
+     } else if (a == 2) {
+       widget.list.add(5);
+     } else {
+       widget.list.add(3);
+     }
+   }else{
+     widget.list.add(0);
+   }
   }
 }

@@ -21,8 +21,8 @@ class _NinthTestPageState extends State<NinthTestPage> {
   ];
 
   void calculateScore(String? selection) {
-    if (selection == null) return;
     int score;
+    if (selection == null) score=0;
     switch (selection) {
       case "5":
         score = 11;
@@ -108,7 +108,6 @@ class _NinthTestPageState extends State<NinthTestPage> {
                       setState(() {
                         selectedOption = value;
                       });
-                      calculateScore(value);
                     },
                   ),
                 ],
@@ -130,6 +129,7 @@ class _NinthTestPageState extends State<NinthTestPage> {
                             content: Text('To\'g\'ri sakrashlar soni tanlamadi')),
                       );
                     }else{
+                      calculateScore(selectedOption);
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(

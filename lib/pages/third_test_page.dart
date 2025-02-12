@@ -27,9 +27,8 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
   ];
 
   void calculateScore(String? selection) {
-    if (selection == null) return;
-
     int score;
+    if (selection == null) score=0;
     switch (selection) {
       case "0":
         score = 11;
@@ -107,7 +106,7 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                       setState(() {
                         selectedOption = value;
                       });
-                      calculateScore(value);
+
                     },
                   ),
                 ],
@@ -128,6 +127,7 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                         SnackBar(content: Text('Tanlanmagan')),
                       );
                     } else {
+                      calculateScore(selectedOption);
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(

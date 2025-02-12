@@ -12,11 +12,13 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   Timer? _timer;
+  bool isClick = false;
   int _elapsedSeconds = 0;
   bool _isRunning = false;
-  List scoreBall=[];
+  List scoreBall = [];
 
   void _toggleTimer() {
+    isClick = true;
     setState(() {
       if (_isRunning) {
         _timer?.cancel();
@@ -169,19 +171,24 @@ class _TestPageState extends State<TestPage> {
                           if (_isRunning) {
                             _timer?.cancel();
                             _isRunning = false;
-
                           }
                           calculateScore(_elapsedSeconds);
                           Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => FirstTestPage(list: scoreBall,),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      FirstTestPage(
+                                list: scoreBall,
+                              ),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
                                 const curve = Curves.ease;
 
-                                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
                                 var offsetAnimation = animation.drive(tween);
 
                                 return SlideTransition(
@@ -210,30 +217,34 @@ class _TestPageState extends State<TestPage> {
   }
 
   void calculateScore(int score) {
-    if (score <= 13) {
-      scoreBall.add(15);
-    } else if (score == 14) {
-      scoreBall.add(14);
-    } else if (score == 15) {
-      scoreBall.add(13);
-    } else if (score == 16) {
-      scoreBall.add(12);
-    } else if (score == 17) {
-      scoreBall.add(11);
-    } else if (score == 18) {
-      scoreBall.add(10);
-    } else if (score == 19) {
-      scoreBall.add(9);
-    } else if (score == 20) {
-      scoreBall.add(7);
-    } else if (score >= 21 && score <= 22) {
-      scoreBall.add(6);
-    } else if (score == 23) {
-      scoreBall.add(5);
-    } else if (score >= 24 && score <= 25) {
-      scoreBall.add(4);
+    if (isClick) {
+      if (score <= 13) {
+        scoreBall.add(15);
+      } else if (score == 14) {
+        scoreBall.add(14);
+      } else if (score == 15) {
+        scoreBall.add(13);
+      } else if (score == 16) {
+        scoreBall.add(12);
+      } else if (score == 17) {
+        scoreBall.add(11);
+      } else if (score == 18) {
+        scoreBall.add(10);
+      } else if (score == 19) {
+        scoreBall.add(9);
+      } else if (score == 20) {
+        scoreBall.add(7);
+      } else if (score >= 21 && score <= 22) {
+        scoreBall.add(6);
+      } else if (score == 23) {
+        scoreBall.add(5);
+      } else if (score >= 24 && score <= 25) {
+        scoreBall.add(4);
+      } else {
+        scoreBall.add(1);
+      }
     } else {
-      scoreBall.add(1);
+      scoreBall.add(0);
     }
   }
 }
