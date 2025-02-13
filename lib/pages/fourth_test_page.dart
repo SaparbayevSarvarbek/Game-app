@@ -15,10 +15,14 @@ class _FourthTestPageState extends State<FourthTestPage> {
   final ScoreModel scoreModel = ScoreModel();
   String? selectedOption;
   final List<String> options = [
-    "0",
-    "1",
-    "2",
-    "3+",
+    "0-2",
+    "3",
+    "4",
+    "5",
+    "6-7",
+    "8",
+    "9",
+    "10",
   ];
 
   void calculateScore(String? selection) {
@@ -26,37 +30,28 @@ class _FourthTestPageState extends State<FourthTestPage> {
     if (selection == null) score=0;
     switch (selection) {
       case "10":
-        score = 16;
-        break;
-      case "9":
         score = 14;
         break;
-      case "8":
-        score = 13;
-        break;
-      case "7":
-        score = 11;
-        break;
-      case "6":
+      case "9":
         score = 9;
         break;
-      case "5":
+      case "8":
         score = 8;
         break;
-      case "4":
+      case "6-7":
         score = 7;
         break;
-      case "3":
+      case "5":
+        score = 6;
+        break;
+      case "4":
         score = 5;
         break;
-      case "2":
+      case "3":
         score = 4;
         break;
-      case "1":
+      case "0-2":
         score = 3;
-        break;
-      case "0":
-        score = 1;
         break;
       default:
         score = 0;
@@ -84,28 +79,16 @@ class _FourthTestPageState extends State<FourthTestPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game4.png'),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game42.png'),
-                            ),
-                          ),
-                        ],
-                      )),
+                  Center(
+                    child: Card(
+                      color: Colors.transparent,
+                      elevation: 10,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image.asset('assets/images/game4.png'),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   const Text(
                     'Beanbagni ushlash',

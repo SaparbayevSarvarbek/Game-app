@@ -63,34 +63,21 @@ class _NinthTestPageState extends State<NinthTestPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game81.png'),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game82.png'),
-                            ),
-                          ),
-                        ],
-                      )),
+                  Center(
+                    child: Card(
+                      color: Colors.transparent,
+                      elevation: 10,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image.asset('assets/images/game81.png'),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   const Text(
                     'Matlarda sakrash',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
                     decoration: InputDecoration(

@@ -92,28 +92,19 @@ class _FifthTestPageState extends State<FifthTestPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game5.png'),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.transparent,
-                            elevation: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Image.asset('assets/images/game52.png'),
-                            ),
-                          ),
-                        ],
-                      )),
+                  Center(
+                    child: SizedBox(
+                      height: 300,
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 10,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Image.asset('assets/images/game5.png'),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   const Text(
                     'Beanbagni mat ustiga tashlash',
