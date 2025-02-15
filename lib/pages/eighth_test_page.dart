@@ -15,27 +15,50 @@ class EighthTestPage extends StatefulWidget {
 }
 
 class _EighthTestPageState extends State<EighthTestPage> {
-  Timer? _timer;
-  int _elapsedSeconds = 0;
-  bool _isRunning = false;
-  bool isClick = false;
-  ScoreModel scoreModel = ScoreModel();
+  final ScoreModel scoreModel = ScoreModel();
+  String? selectedOption;
+  final List<String> options = [
+    "15",
+    "14",
+    "13",
+    "11-12",
+    "9-10",
+    "6-8",
+    "0-5",
+  ];
 
-  void _toggleTimer() {
-    isClick=true;
+  void calculateScore(String? selection) {
+    int score;
+    if (selection == null) score=0;
+    switch (selection) {
+      case "15":
+        score = 11;
+        break;
+      case "14":
+        score = 10;
+        break;
+      case "13":
+        score = 8;
+        break;
+      case "11-12":
+        score = 6;
+        break;
+      case "9-10":
+        score = 5;
+        break;
+      case "6-8":
+        score = 4;
+        break;
+      case "0-5":
+        score = 1;
+        break;
+      default:
+        score = 0;
+    }
+
     setState(() {
-      if (_isRunning) {
-        _timer?.cancel();
-        _isRunning = false;
-      } else {
-        _elapsedSeconds = 0;
-        _isRunning = true;
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          setState(() {
-            _elapsedSeconds++;
-          });
-        });
-      }
+      widget.list.add(score);
+      print("Natija qo'shildi: $score");
     });
   }
 
@@ -47,204 +70,106 @@ class _EighthTestPageState extends State<EighthTestPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
-      body: Stack(
+      body: Column(
         children: [
-          SingleChildScrollView(
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Card(
-                      color: Colors.transparent,
-                      elevation: 10,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Container(
-                              width: 250,
-                              height: 300,
-                              child: Image.asset(
-                                'assets/images/game7.png',
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 10,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Colors.black54,
-                                shape: BoxShape.circle,
-                                border:
-                                Border.all(color: Colors.white, width: 2),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: CircularProgressIndicator(
-                                            value: (_elapsedSeconds % 60) / 60,
-                                            strokeWidth: 5,
-                                            valueColor:
-                                            const AlwaysStoppedAnimation<
-                                                Color>(
-                                              Colors.blueAccent,
-                                            ),
-                                            backgroundColor:
-                                            Colors.grey.shade300,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${_elapsedSeconds}s',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 10,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Image.asset('assets/images/game7.png'),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Oyoq uchida yurish',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const Text(
-                    '• 4,5 m chiziq',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  const Text(
-                    '• Maksimal ball 15 qadam yoki bola qator oxiriga yetib borganda',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ],
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Oyoq uchida yurish',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const Text('• 4,5 m chiziq', style: TextStyle(fontSize: 18)),
+                    const Text('• Maksimal 2 ta sinov', style: TextStyle(fontSize: 18)),
+                    const Text(
+                      '• Maksimal ball 15 qadam yoki bola qator oxiriga yetib borganda',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: "Qadamlar soni",
+                        border: OutlineInputBorder(),
+                      ),
+                      value: selectedOption,
+                      items: options.map((option) {
+                        return DropdownMenuItem(
+                          value: option,
+                          child: Text(option),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      onPressed: _toggleTimer,
-                      child: Text(_isRunning ? 'Stop' : 'Start'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _isRunning ? Colors.red : Colors.green,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (_isRunning) {
-                            _timer?.cancel();
-                            _isRunning = false;
-                          }
-                          calculateScore(_elapsedSeconds);
-                          print("Vaqt qo‘shildi: ${scoreModel.results}s");
-                          Navigator.pushReplacement(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      NinthTestPage(list: widget.list,),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                const begin = Offset(1.0, 0.0);
-                                const end = Offset.zero;
-                                const curve = Curves.ease;
-
-                                var tween = Tween(begin: begin, end: end)
-                                    .chain(CurveTween(curve: curve));
-                                var offsetAnimation = animation.drive(tween);
-
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: child,
-                                );
-                              },
-                            ),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            width: MediaQuery.of(context).size.width,
+            color: Colors.transparent,
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (selectedOption == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Qadamlar soni tanlang')),
+                    );
+                  } else {
+                    calculateScore(selectedOption);
+                    Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            NinthTestPage(list: widget.list),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          const begin = Offset(1.0, 0.0);
+                          const end = Offset.zero;
+                          const curve = Curves.ease;
+                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                          var offsetAnimation = animation.drive(tween);
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: child,
                           );
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo,
-                        foregroundColor: Colors.white,
+                        },
                       ),
-                      child: const Text('Keyingi'),
-                    ),
-                  ),
-                ],
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text("Keyingi"),
               ),
             ),
           ),
         ],
       ),
-    );
-  }
 
-  void calculateScore(int score) {
-    if(isClick){
-      if (score <= 13) {
-        widget.list.add(15);
-      } else if (score == 14) {
-        widget.list.add(14);
-      } else if (score == 15) {
-        widget.list.add(13);
-      } else if (score == 16) {
-        widget.list.add(12);
-      } else if (score == 17) {
-        widget.list.add(11);
-      } else if (score == 18) {
-        widget.list.add(10);
-      } else if (score == 19) {
-        widget.list.add(9);
-      } else if (score == 20) {
-        widget.list.add(7);
-      } else if (score >= 21 && score <= 22) {
-        widget.list.add(6);
-      } else if (score == 23) {
-        widget.list.add(5);
-      } else if (score >= 24 && score <= 25) {
-        widget.list.add(4);
-      } else {
-        widget.list.add(1);
-      }
-    }else{
-      widget.list.add(0);
-    }
+    );
   }
 }

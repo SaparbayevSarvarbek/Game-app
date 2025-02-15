@@ -50,7 +50,7 @@ class _ResultPageState extends State<ResultPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,16 +62,53 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                   columns: [
                     DataColumn(
-                        label: Text('Savol Nomlari',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                        label: SizedBox(
+                      width: 80,
+                      child: Wrap(alignment: WrapAlignment.center, children: [
+                        Text(
+                          'Savol nomi',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ]),
+                    )),
                     DataColumn(
-                        label: Text('Ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                        label: SizedBox(
+                      width: 80,
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Text('Ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center)
+                        ],
+                      ),
+                    )),
                   ],
                   rows: List.generate(widget.answerList.length, (index) {
                     return DataRow(cells: [
-                      DataCell(Text(questionList[index])),
-                      DataCell(Text('${widget.answerList[index]}')),
+                      DataCell(Expanded(
+                        child: Wrap(
+                          children: [
+                            Text(
+                              questionList[index],
+                              maxLines: 2,
+                              softWrap: true,
+                            )
+                          ],
+                        ),
+                      )),
+                      DataCell(Expanded(
+                        child: Wrap(
+                          children: [
+                            Text(
+                              '${widget.answerList[index]}',
+                              maxLines: 2,
+                              softWrap: true,
+                            )
+                          ],
+                        ),
+                      )),
                     ]);
                   }),
                 ),
@@ -84,45 +121,77 @@ class _ResultPageState extends State<ResultPage> {
                   height: 5,
                 ),
                 DataTable(
-                  columnSpacing: 20,
+                  columnSpacing: 10, // Kenglikni kamaytirib ko‘rish mumkin
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   columns: [
                     DataColumn(
-                        label: Text('Umumiy ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'Umumiy ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('O\'rtacha ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'O\'rtacha ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('Percentile',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          children: [
+                            Text(
+                              'Percentile',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                   rows: [
                     DataRow(cells: [
+                      DataCell(Text(
+                        "${widget.answerList[0] + widget.answerList[1] + widget.answerList[2]}",
+                      )),
                       DataCell(
-                        SizedBox(
-                          child: Wrap(
-                            children: [
-                              Text(
-                                  "${widget.answerList[0] + widget.answerList[1] + widget.answerList[2]}")
-                            ],
-                          ),
+                        Center(
+                          child: Text(((componentList[0] * 10).truncate() / 10)
+                              .toString()),
                         ),
                       ),
                       DataCell(
                         Center(
-                            child: Text(
-                                ((componentList[0] * 10).truncate() / 10)
-                                    .toString())),
-                      ),
-                      DataCell(
-                        Center(
-                            child: Text(
-                                ((percentileList[0] * 10).truncate() / 10)
-                                    .toString())),
+                          child: Text(((percentileList[0] * 10).truncate() / 10)
+                              .toString()),
+                        ),
                       ),
                     ]),
                   ],
@@ -143,14 +212,53 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                   columns: [
                     DataColumn(
-                        label: Text('Umumiy ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'Umumiy ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('O\'rtacha ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'O\'rtacha ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('Percentile',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          children: [
+                            Text(
+                              'Percentile',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                   rows: [
                     DataRow(cells: [
@@ -195,14 +303,53 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                   columns: [
                     DataColumn(
-                        label: Text('Umumiy ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'Umumiy ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('O\'rtacha ball',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [
+                            Text(
+                              'O\'rtacha ball',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text('Percentile',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                      label: Expanded(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          children: [
+                            Text(
+                              'Percentile',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                   rows: [
                     DataRow(cells: [
@@ -250,25 +397,67 @@ class _ResultPageState extends State<ResultPage> {
                     ),
                     columns: [
                       DataColumn(
-                          label: Text('Umumiy ball',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
+                        label: Expanded(
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            children: [
+                              Text(
+                                'Umumiy ball',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       DataColumn(
-                          label: Text('O\'rtacha ball',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
+                        label: Expanded(
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            children: [
+                              Text(
+                                'O\'rtacha ball',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       DataColumn(
-                          label: Text('Percentile',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
+                        label: Expanded(
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Text(
+                                'Percentile',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                     rows: [
                       DataRow(
                         color: WidgetStateProperty.resolveWith<Color?>(
                             (Set<WidgetState> states) {
                           if (totalScore <= 56) {
-                            return Color.alphaBlend(Colors.red.withAlpha(100),Colors.white);
+                            return Color.alphaBlend(
+                                Colors.red.withAlpha(100), Colors.white);
                           } else if (totalScore >= 57 && totalScore <= 67) {
-                            return Color.alphaBlend(Colors.amber.withAlpha(100), Colors.white);
+                            return Color.alphaBlend(
+                                Colors.amber.withAlpha(100), Colors.white);
                           } else {
-                            return Color.alphaBlend(Colors.green.withAlpha(100), Colors.white);
+                            return Color.alphaBlend(
+                                Colors.green.withAlpha(100), Colors.white);
                           }
                         }),
                         cells: [
