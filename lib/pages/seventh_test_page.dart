@@ -16,23 +16,24 @@ class SeventhTestPage extends StatefulWidget {
 
 class _SeventhTestPageState extends State<SeventhTestPage> {
   Timer? _timer;
-  int _elapsedSeconds = 30;
+  int _elapsedSeconds = 0;
   bool _isRunning = false;
   bool isClick = false;
   ScoreModel scoreModel = ScoreModel();
 
   void _toggleTimer() {
+    isClick = true;
     setState(() {
       if (_isRunning) {
         _timer?.cancel();
         _isRunning = false;
       } else {
-        _elapsedSeconds = 30;
+        _elapsedSeconds = 0;
         _isRunning = true;
         _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           setState(() {
-            if (_elapsedSeconds > 0) {
-              _elapsedSeconds--;
+            if (_elapsedSeconds < 30) {
+              _elapsedSeconds++;
             } else {
               _timer?.cancel();
               _isRunning = false;
@@ -180,7 +181,6 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                           _isRunning = false;
                         }
                         calculateScore(_elapsedSeconds);
-                        print("Vaqt qo‘shildi: ${scoreModel.results}s");
                         Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
@@ -223,7 +223,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
 
   void calculateScore(int score) {
     if (isClick) {
-      int a = 30 - score;
+      int a = score;
       if (a <= 30 && a >= 29) {
         widget.list.add(14);
       } else if (a >= 24 && a <= 28) {

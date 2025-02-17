@@ -224,7 +224,7 @@ class _SixthTestPageState extends State<SixthTestPage> {
 
   void calculateScore(int score) {
     if (isClick) {
-      int a = score;
+      int a =  score;
       if (a == 30) {
         widget.list.add(13);
       } else if (a >= 28 && a <= 29) {

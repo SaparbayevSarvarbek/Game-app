@@ -121,7 +121,7 @@ class _ResultPageState extends State<ResultPage> {
                   height: 5,
                 ),
                 DataTable(
-                  columnSpacing: 10, // Kenglikni kamaytirib ko‘rish mumkin
+                  columnSpacing: 10,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(8),
