@@ -1,14 +1,14 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/ninth_test_page.dart';
 
 import '../moduls/score_model.dart';
 
 class EighthTestPage extends StatefulWidget {
-  List list;
+  final List list;
 
-  EighthTestPage({Key? key, required this.list}) : super(key: key);
+  const EighthTestPage({super.key, required this.list});
 
   @override
   State<EighthTestPage> createState() => _EighthTestPageState();
@@ -58,7 +58,7 @@ class _EighthTestPageState extends State<EighthTestPage> {
 
     setState(() {
       widget.list.add(score);
-      print("Natija qo'shildi: $score");
+      // print("Natija qo'shildi: $score");
     });
   }
 
@@ -75,7 +75,7 @@ class _EighthTestPageState extends State<EighthTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,29 +84,29 @@ class _EighthTestPageState extends State<EighthTestPage> {
                         color: Colors.transparent,
                         elevation: 10,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
+                          borderRadius: BorderRadius.circular(16.r),
                           child: Image.asset('assets/images/game7.png'),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Oyoq uchida yurish',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text('• 4,5 m chiziq', style: TextStyle(fontSize: 18)),
-                    const Text('• Maksimal 2 ta sinov', style: TextStyle(fontSize: 18)),
-                    const Text(
+                    Text('• 4,5 m chiziq', style: TextStyle(fontSize: 18.sp)),
+                    Text('• Maksimal 2 ta sinov', style: TextStyle(fontSize: 18.sp)),
+                    Text(
                       '• Maksimal ball 15 qadam yoki bola qator oxiriga yetib borganda',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
                         labelText: "Qadamlar soni",
                         border: OutlineInputBorder(),
                       ),
-                      value: selectedOption,
+                      initialValue: selectedOption,
                       items: options.map((option) {
                         return DropdownMenuItem(
                           value: option,
@@ -125,12 +125,12 @@ class _EighthTestPageState extends State<EighthTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: SizedBox(
-              width: double.infinity,
-              height: 50,
+              width: MediaQuery.sizeOf(context).width,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedOption == null) {

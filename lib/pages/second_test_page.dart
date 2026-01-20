@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/third_test_page.dart';
 
 import '../moduls/score_model.dart';
 
 class SecondTestPage extends StatefulWidget {
-  List list;
-  SecondTestPage({Key? key,required this.list}):super(key: key);
+  final List list;
+  const SecondTestPage({super.key,required this.list});
 
   @override
   State<SecondTestPage> createState() => _SecondTestPageState();
@@ -51,7 +52,7 @@ class _SecondTestPageState extends State<SecondTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,7 @@ class _SecondTestPageState extends State<SecondTestPage> {
                           alignment: Alignment.center,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
+                              borderRadius: BorderRadius.circular(16.r),
                               child: Image.asset('assets/images/game2.png'),
                             ),
                             Positioned(
@@ -76,7 +77,7 @@ class _SecondTestPageState extends State<SecondTestPage> {
                                   border: Border.all(color: Colors.white, width: 2),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -84,8 +85,8 @@ class _SecondTestPageState extends State<SecondTestPage> {
                                         alignment: Alignment.center,
                                         children: [
                                           SizedBox(
-                                            width: 50,
-                                            height: 50,
+                                            width: 50.w,
+                                            height: 50.h,
                                             child: CircularProgressIndicator(
                                               value: (_elapsedSeconds % 60) / 60,
                                               strokeWidth: 5,
@@ -113,22 +114,22 @@ class _SecondTestPageState extends State<SecondTestPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Munchoqlarni ipga tizish',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                    Text(
                       '• 3-4 yoshli bolalar uchun 6 ta munchoq',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• 5-6 yoshli bolalar uchun 12 ta munchoq',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• Maksimal 2 ta sinov',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ],
                 ),
@@ -136,14 +137,14 @@ class _SecondTestPageState extends State<SecondTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 50.h,
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: _toggleTimer,
@@ -154,9 +155,9 @@ class _SecondTestPageState extends State<SecondTestPage> {
                     child: Text(_isRunning ? 'Stop' : 'Start'),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 SizedBox(
-                  height: 50,
+                  height: 50.h,
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
@@ -166,7 +167,7 @@ class _SecondTestPageState extends State<SecondTestPage> {
                           _isRunning = false;
                         }
                         calculateScore(_elapsedSeconds);
-                        print("Vaqt qo‘shildi: ${scoreModel.results}s");
+                        // print("Vaqt qo‘shildi: ${scoreModel.results}s");
                         Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(

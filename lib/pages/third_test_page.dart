@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/fourth_test_page.dart';
 
 import '../moduls/score_model.dart';
 
 class ThirdTestPage extends StatefulWidget {
-  List list;
+  final List list;
 
-  ThirdTestPage({Key? key, required this.list}) : super(key: key);
+  const ThirdTestPage({super.key, required this.list});
 
   @override
   State<ThirdTestPage> createState() => _ThirdTestPageState();
@@ -44,7 +45,7 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
 
     setState(() {
       widget.list.add(score);
-      print("Natija qo'shildi: ${widget.list}");
+      // print("Natija qo'shildi: ${widget.list}");
     });
   }
 
@@ -61,8 +62,8 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.w, vertical: 16.h),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,28 +72,28 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
                       child: Card(
                         elevation: 10,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
+                          borderRadius: BorderRadius.circular(16.r),
                           child: Image.asset('assets/images/game3.png'),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Drawing Trail',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                    Text(
                       '• 10 ta urinish',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.sp),
                     DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
                         labelText: "Ko'rsatkichni tanlang",
                         border: OutlineInputBorder(),
                       ),
-                      value: selectedOption,
+                      initialValue: selectedOption,
                       items: options.map((option) {
                         return DropdownMenuItem(
                           value: option,
@@ -111,12 +112,12 @@ class _ThirdTestPageState extends State<ThirdTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedOption == null) {

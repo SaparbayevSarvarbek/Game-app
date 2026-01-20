@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResultPage extends StatefulWidget {
-  List answerList;
+  final List answerList;
 
-  ResultPage({super.key, required this.answerList});
+  const ResultPage({super.key, required this.answerList});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -50,7 +51,7 @@ class _ResultPageState extends State<ResultPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.sp),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,73 +59,71 @@ class _ResultPageState extends State<ResultPage> {
                 DataTable(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
+                  columnSpacing: 20.0,
+                  headingRowHeight: 70,
+                  dataRowMaxHeight: 60,
                   columns: [
                     DataColumn(
                         label: SizedBox(
-                      width: 80,
+                      width: 80.w,
                       child: Wrap(alignment: WrapAlignment.center, children: [
-                        Text(
-                          'Savol nomi',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('Savol nomi',
+                            style: TextStyle(fontSize: 18.sp),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
                       ]),
                     )),
                     DataColumn(
                         label: SizedBox(
-                      width: 80,
+                      width: 80.w,
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
                           Text('Ball',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center)
+                              style: TextStyle(fontSize: 18.sp),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis)
                         ],
                       ),
                     )),
                   ],
                   rows: List.generate(widget.answerList.length, (index) {
                     return DataRow(cells: [
-                      DataCell(Expanded(
-                        child: Wrap(
-                          children: [
-                            Text(
-                              questionList[index],
-                              maxLines: 2,
-                              softWrap: true,
-                            )
-                          ],
+                      DataCell(Wrap(children: [
+                        Text(
+                          questionList[index],
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      )),
-                      DataCell(Expanded(
-                        child: Wrap(
-                          children: [
-                            Text(
-                              '${widget.answerList[index]}',
-                              maxLines: 2,
-                              softWrap: true,
-                            )
-                          ],
-                        ),
+                      ])),
+                      DataCell(Text(
+                        '${widget.answerList[index]}',
+                        maxLines: 2,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
                       )),
                     ]);
                   }),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   'Tangalarni joylashtirish, Munchoqlarni ipga tizish, Drawing Trail',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 5.h,
                 ),
                 DataTable(
                   columnSpacing: 10,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   columns: [
                     DataColumn(
@@ -196,19 +195,19 @@ class _ResultPageState extends State<ResultPage> {
                     ]),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   groupQuestionList[1],
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 5.h,
                 ),
                 DataTable(
                   columnSpacing: 20,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   columns: [
                     DataColumn(
@@ -287,7 +286,7 @@ class _ResultPageState extends State<ResultPage> {
                     ]),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   groupQuestionList[2],
                   textAlign: TextAlign.center,
@@ -299,7 +298,7 @@ class _ResultPageState extends State<ResultPage> {
                   columnSpacing: 20,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   columns: [
                     DataColumn(
@@ -378,14 +377,14 @@ class _ResultPageState extends State<ResultPage> {
                     ]),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   'Testning umumiy natijasi',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 5.h,
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -393,7 +392,7 @@ class _ResultPageState extends State<ResultPage> {
                     columnSpacing: 20,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                     columns: [
                       DataColumn(
@@ -545,7 +544,7 @@ class _ResultPageState extends State<ResultPage> {
       }
       sum += componentList[i];
     }
-    print('Sum $sum \n componentScore $componentScore');
+    // print('Sum $sum \n componentScore $componentScore');
     componentScore = sum / 3;
   }
 

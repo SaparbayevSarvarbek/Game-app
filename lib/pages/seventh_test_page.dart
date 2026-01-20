@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/eighth_test_page.dart';
 
 import '../moduls/score_model.dart';
 
 class SeventhTestPage extends StatefulWidget {
-  List list;
+  final List list;
 
-  SeventhTestPage({Key? key, required this.list}) : super(key: key);
+  const SeventhTestPage({super.key, required this.list});
 
   @override
   State<SeventhTestPage> createState() => _SeventhTestPageState();
@@ -57,8 +58,8 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.w, vertical: 16.h),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,10 +72,10 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                           alignment: Alignment.center,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
+                              borderRadius: BorderRadius.circular(16.r),
                               child: SizedBox(
-                                width: 250,
-                                height: 300,
+                                width: 250.w,
+                                height: 300.h,
                                 child: Image.asset('assets/images/game6.png'),
                               ),
                             ),
@@ -89,7 +90,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                                       Border.all(color: Colors.white, width: 2),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -97,8 +98,8 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                                         alignment: Alignment.center,
                                         children: [
                                           SizedBox(
-                                            width: 50,
-                                            height: 50,
+                                            width: 50.w,
+                                            height: 50.h,
                                             child: CircularProgressIndicator(
                                               value: (_elapsedSeconds / 30),
                                               strokeWidth: 5,
@@ -127,23 +128,23 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Bir oyoqli muvozanat',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                    Text(
                       'Chap oyoq bilan bajaring',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• Maksimal vaqt 30 soniya',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• Chap oyoq uchun maksimal 2 ta sinov',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ],
                 ),
@@ -151,7 +152,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: Column(
@@ -159,7 +160,7 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
+                  height: 50.h,
                   child: ElevatedButton(
                     onPressed: _toggleTimer,
                     style: ElevatedButton.styleFrom(
@@ -169,10 +170,10 @@ class _SeventhTestPageState extends State<SeventhTestPage> {
                     child: Text(_isRunning ? 'Stop' : 'Start'),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
+                  height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {

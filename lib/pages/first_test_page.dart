@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/second_test_page.dart';
 
 import '../moduls/score_model.dart';
 class FirstTestPage extends StatefulWidget {
-  List list;
-  FirstTestPage({Key? key,required this.list}):super(key: key);
+  final List list;
+  const FirstTestPage({super.key,required this.list});
 
   @override
   State<FirstTestPage> createState() => _FirstTestPageState();
@@ -50,7 +51,7 @@ class _FirstTestPageState extends State<FirstTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,7 @@ class _FirstTestPageState extends State<FirstTestPage> {
                           alignment: Alignment.center,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
+                              borderRadius: BorderRadius.circular(16.r),
                               child: Image.asset('assets/images/game1.png'),
                             ),
                             Positioned(
@@ -73,10 +74,10 @@ class _FirstTestPageState extends State<FirstTestPage> {
                                 decoration: BoxDecoration(
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 2),
+                                  border: Border.all(color: Colors.white, width: 2.w),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -84,8 +85,8 @@ class _FirstTestPageState extends State<FirstTestPage> {
                                         alignment: Alignment.center,
                                         children: [
                                           SizedBox(
-                                            width: 50,
-                                            height: 50,
+                                            width: 50.w,
+                                            height: 50.h,
                                             child: CircularProgressIndicator(
                                               value: (_elapsedSeconds % 60) / 60,
                                               strokeWidth: 5,
@@ -114,26 +115,26 @@ class _FirstTestPageState extends State<FirstTestPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Tangalarni joylashtirish',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                    Text(
                       'Chap qo\'l bilan bajaring',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• 3-4 yoshli bolalar uchun 6 tanga',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• 5-6 yoshli bolalar uchun 12 tanga',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const Text(
+                    Text(
                       '• Maksimal 2 ta sinov',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ],
                 ),
@@ -141,15 +142,15 @@ class _FirstTestPageState extends State<FirstTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 50,
-                  width: double.infinity,
+                  height: 50.h,
+                  width: MediaQuery.sizeOf(context).width,
                   child: ElevatedButton(
                     onPressed: _toggleTimer,
                     style: ElevatedButton.styleFrom(
@@ -159,10 +160,10 @@ class _FirstTestPageState extends State<FirstTestPage> {
                     child: Text(_isRunning ? 'Stop' : 'Start'),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 SizedBox(
-                  height: 50,
-                  width: double.infinity,
+                  height: 50.h,
+                  width: MediaQuery.sizeOf(context).width,
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {

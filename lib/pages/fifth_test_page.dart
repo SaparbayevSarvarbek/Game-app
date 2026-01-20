@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/sixth_test_page.dart';
 
 import '../moduls/score_model.dart';
 
 class FifthTestPage extends StatefulWidget {
-  List list;
+  final List list;
 
-  FifthTestPage({Key? key, required this.list});
+  const FifthTestPage({super.key, required this.list});
 
   @override
   State<FifthTestPage> createState() => _FifthTestPageState();
@@ -72,7 +73,7 @@ class _FifthTestPageState extends State<FifthTestPage> {
 
     setState(() {
       widget.list.add(score);
-      print("Natija qo'shildi: $score");
+      // print("Natija qo'shildi: $score");
     });
   }
 
@@ -89,42 +90,42 @@ class _FifthTestPageState extends State<FifthTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.w, vertical: 16.h),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
                       child: SizedBox(
-                        height: 300,
+                        height: 300.h,
                         child: Card(
                           color: Colors.transparent,
                           elevation: 10,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
+                            borderRadius: BorderRadius.circular(16.r),
                             child: Image.asset('assets/images/game5.png'),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Beanbagni mat ustiga tashlash',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                    Text(
                       '• 10 ta urinish',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
                         labelText: "Aniq tushurishlar soni",
                         border: OutlineInputBorder(),
                       ),
-                      value: selectedOption,
+                      initialValue: selectedOption,
                       items: options.map((option) {
                         return DropdownMenuItem(
                           value: option,
@@ -143,12 +144,12 @@ class _FifthTestPageState extends State<FifthTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.sp),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: SizedBox(
-              width: double.infinity,
-              height: 50,
+              width: MediaQuery.sizeOf(context).width,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedOption == null) {

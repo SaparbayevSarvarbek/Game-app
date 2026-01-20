@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/moduls/username_model.dart';
 import 'package:mabc2/pages/home_page.dart';
 import 'package:mabc2/view_model/registration_view_model.dart';
@@ -25,8 +26,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
         body: Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      margin: EdgeInsets.symmetric(horizontal: 10.h),
       child: SingleChildScrollView(
         child: Form(
             key: _formKey,
@@ -34,10 +35,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.symmetric(vertical: 18),
+                    margin: EdgeInsets.symmetric(vertical: 18.sp),
                     child: Text('Ro\'yhatdan o\'tish',
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold))),
+                            fontSize: 24.sp, fontWeight: FontWeight.bold))),
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -55,7 +56,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 TextFormField(
                   controller: _emailController,
@@ -68,7 +69,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     if (value == null || value.isEmpty) {
                       return 'Elektron pochtani kirting';
                     }
-                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$')
+                    if (!RegExp(r'^[\w-.]+@([\w-]+\.)+\w{2,4}$')
                         .hasMatch(value)) {
                       return 'Email formati noto\'g\'ri';
                     }
@@ -76,7 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 TextFormField(
                   obscureText: _obscureText1,
@@ -145,12 +146,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  height: 50.h,
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
                   child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -175,7 +176,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       child: Text(
                         'Ro\'yhatdan o\'tish',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
                       )),
                 ),
                 SizedBox(

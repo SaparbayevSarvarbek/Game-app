@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/result_page.dart';
 
 import '../moduls/score_model.dart';
 class NinthTestPage extends StatefulWidget {
-  List list;
-  NinthTestPage({Key? key,required this.list});
+  final List list;
+  const NinthTestPage({super.key,required this.list});
 
   @override
   State<NinthTestPage> createState() => _NinthTestPageState();
@@ -42,7 +43,7 @@ class _NinthTestPageState extends State<NinthTestPage> {
 
     setState(() {
       widget.list.add(score);
-      print("Natija qo'shildi: $score");
+      // print("Natija qo'shildi: $score");
     });
   }
 
@@ -59,7 +60,7 @@ class _NinthTestPageState extends State<NinthTestPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,23 +69,23 @@ class _NinthTestPageState extends State<NinthTestPage> {
                         color: Colors.transparent,
                         elevation: 10,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
+                          borderRadius: BorderRadius.circular(16.r),
                           child: Image.asset('assets/images/game81.png'),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16.0),
-                    const Text(
+                    SizedBox(height: 16.h),
+                    Text(
                       'Matlarda sakrash',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
                         labelText: "To'g'ri sakrashlar soni",
                         border: OutlineInputBorder(),
                       ),
-                      value: selectedOption,
+                      initialValue: selectedOption,
                       items: options.map((option) {
                         return DropdownMenuItem(
                           value: option,
@@ -103,12 +104,12 @@ class _NinthTestPageState extends State<NinthTestPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.r),
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedOption == null) {

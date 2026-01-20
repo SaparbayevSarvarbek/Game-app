@@ -27,7 +27,7 @@ class ApiService {
     } on SocketException {
       return {'error': 'Internet bilan muammo bor'};
     } catch (e) {
-      print('Login serviceda xatolik $e');
+      // print('Login serviceda xatolik $e');
       return {'error': 'Bunday foydalanuvchi yo\'q'};
     }
   }
@@ -40,14 +40,14 @@ class ApiService {
           options: Options(
               headers: {HttpHeaders.contentTypeHeader: "application/json"}));
     } catch (e) {
-      print('addUser serviceda xatolik');
+      // print('addUser serviceda xatolik');
     }
   }
 
   Future getQuestion() async {
     try {
       Response response =
-          await dio.get('https://oyinlar.pythonanywhere.com/api/categories/');
+      await dio.get('https://oyinlar.pythonanywhere.com/api/categories/');
       if (response.statusCode == 200) {
         List question = response.data
             .map((e) => CategoryModel.fromJson(e))
@@ -56,7 +56,7 @@ class ApiService {
         return question;
       }
     } catch (e) {
-      print('getQuestion serviceda xatolik');
+      // print('getQuestion serviceda xatolik');
     }
   }
 
@@ -70,7 +70,7 @@ class ApiService {
           options: Options(
               headers: {HttpHeaders.contentTypeHeader: "multipart/form-data"}));
     } catch (e) {
-      print('Logout serviceda xatolik: $e');
+      // print('Logout serviceda xatolik: $e');
     }
   }
 
@@ -82,7 +82,7 @@ class ApiService {
           options: Options(
               headers: {HttpHeaders.contentTypeHeader: "application/json"}));
     } catch (e) {
-      print('Push results serviceda xatolik $e');
+      // print('Push results serviceda xatolik $e');
     }
   }
 }

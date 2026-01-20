@@ -4,9 +4,9 @@ import 'package:mabc2/pages/fifth_test_page.dart';
 import '../moduls/score_model.dart';
 
 class FourthTestPage extends StatefulWidget {
-  List list;
+  final List list;
 
-  FourthTestPage({Key? key, required this.list}) : super(key: key);
+  const FourthTestPage({super.key, required this.list});
 
   @override
   State<FourthTestPage> createState() => _FourthTestPageState();
@@ -108,7 +108,7 @@ class _FourthTestPageState extends State<FourthTestPage> {
                         labelText: "Ushlab olishlar soni",
                         border: OutlineInputBorder(),
                       ),
-                      value: selectedOption,
+                      initialValue: selectedOption,
                       items: options.map((option) {
                         return DropdownMenuItem(
                           value: option,

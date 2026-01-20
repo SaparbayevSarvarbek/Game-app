@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mabc2/pages/registration_page.dart';
 import 'package:mabc2/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class _HomePageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 25.0),
+          padding: EdgeInsets.symmetric(horizontal: 25.sp),
           child: Consumer<LoginViewModel>(builder: (context, provider, child) {
             return Form(
               key: _formKey,
@@ -38,10 +39,10 @@ class _HomePageState extends State<LoginPage> {
                 children: [
                   Text(
                     'Dasturga xush kelibsiz',
-                    style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 40.h,
                   ),
                   TextFormField(
                     controller: _nameController,
@@ -53,6 +54,7 @@ class _HomePageState extends State<LoginPage> {
                       if (value == null || value.isEmpty) {
                         return 'Username kiriting';
                       }
+                      return null;
                     },
                   ),
                   SizedBox(
@@ -82,6 +84,7 @@ class _HomePageState extends State<LoginPage> {
                       if (value == null || value.isEmpty) {
                         return 'Parolni kirting';
                       }
+                      return null;
                     },
                   ),
                   SizedBox(
@@ -90,9 +93,9 @@ class _HomePageState extends State<LoginPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20.0),
                     width: provider.isLoading
-                        ? 40
+                        ? 40.w
                         : MediaQuery.of(context).size.width,
-                    height: provider.isLoading ? 40 : 50,
+                    height: provider.isLoading ? 40.w : 50.h,
                     child: provider.isLoading
                         ? CircularProgressIndicator()
                         : ElevatedButton(
@@ -100,10 +103,11 @@ class _HomePageState extends State<LoginPage> {
                               backgroundColor: Colors.indigo,
                             ),
                             onPressed: () async {
+                              final viewModel= context.read<LoginViewModel>();
                               bool isConnected = await checkInternet();
                               if (isConnected) {
                                 if (_formKey.currentState!.validate()) {
-                                  context.read<LoginViewModel>().loginUser(
+                                  viewModel.loginUser(
                                       _nameController.text,
                                       _passwordController.text,
                                       context);
@@ -116,13 +120,13 @@ class _HomePageState extends State<LoginPage> {
                               }
                             },
                             child: Text(
-                              'Kirish',
+                              'Internet mavjud emas',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  TextStyle(color: Colors.white, fontSize: 18.sp),
                             )),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 40.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
